@@ -57,7 +57,9 @@ var LottoController = /*#__PURE__*/function () {
       var purchaseMoney = event.detail;
 
       if (!(0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidPurchaseMoney)(purchaseMoney)) {
-        return alert(_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_MESSAGE.IS_NOT_VALID_PURCHASE_MONEY);
+        alert(_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_MESSAGE.IS_NOT_VALID_PURCHASE_MONEY);
+        this.lottoPurchaseInputView.resetPurchaseMoney();
+        return;
       }
 
       this.lottoPurchaseResultView.renderLottoPurchaseCount(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
@@ -356,6 +358,11 @@ var LottoPurchaseInputView = /*#__PURE__*/function () {
       event.preventDefault();
       var purchaseMoney = this.lottoPurchaseInput.valueAsNumber;
       (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(this.lottoPurchaseForm, '@purchaseMoney', purchaseMoney);
+    }
+  }, {
+    key: "resetPurchaseMoney",
+    value: function resetPurchaseMoney() {
+      this.lottoPurchaseForm.reset();
     }
   }]);
 
