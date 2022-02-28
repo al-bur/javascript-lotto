@@ -21,119 +21,56 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
-
-function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
-
-function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
-
-function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
-
-function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
-
-function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
-
-function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
-
-function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
-
-function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
 
 
 
-
-
-var _lottoModel = /*#__PURE__*/new WeakMap();
-
-var _lottoPurchaseInputView = /*#__PURE__*/new WeakMap();
-
-var _lottoPurchaseResultView = /*#__PURE__*/new WeakMap();
-
-var _lottoNumberInputView = /*#__PURE__*/new WeakMap();
-
-var _submitView = /*#__PURE__*/new WeakSet();
-
-var _submitLottoToggle = /*#__PURE__*/new WeakSet();
-
-var _submitPurchaseLotto = /*#__PURE__*/new WeakSet();
 
 var LottoController = /*#__PURE__*/function () {
   function LottoController(lottoModel, views) {
     _classCallCheck(this, LottoController);
 
-    _classPrivateMethodInitSpec(this, _submitPurchaseLotto);
-
-    _classPrivateMethodInitSpec(this, _submitLottoToggle);
-
-    _classPrivateMethodInitSpec(this, _submitView);
-
-    _classPrivateFieldInitSpec(this, _lottoModel, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _lottoPurchaseInputView, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _lottoPurchaseResultView, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _lottoNumberInputView, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldSet(this, _lottoModel, lottoModel);
-
-    _classPrivateFieldSet(this, _lottoPurchaseInputView, views.lottoPurchaseInputView);
-
-    _classPrivateFieldSet(this, _lottoPurchaseResultView, views.lottoPurchaseResultView);
-
-    _classPrivateFieldSet(this, _lottoNumberInputView, views.lottoPurchaseInputView);
+    this.lottoModel = lottoModel;
+    this.lottoPurchaseInputView = views.lottoPurchaseInputView;
+    this.lottoPurchaseResultView = views.lottoPurchaseResultView;
+    this.lottoNumberInputView = views.lottoPurchaseInputView;
   }
 
   _createClass(LottoController, [{
     key: "init",
     value: function init() {
-      _classPrivateMethodGet(this, _submitView, _submitView2).call(this);
+      this.submitView();
+    }
+  }, {
+    key: "submitView",
+    value: function submitView() {
+      (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(this.lottoPurchaseInputView.lottoPurchaseForm, '@purchaseMoney', this.submitPurchaseLotto.bind(this));
+      (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(this.lottoPurchaseResultView.showLottoToggle, '@lottoToggle', this.submitLottoToggle.bind(this));
+    }
+  }, {
+    key: "submitLottoToggle",
+    value: function submitLottoToggle() {
+      this.lottoPurchaseResultView.toggleLottoNumbers();
+    }
+  }, {
+    key: "submitPurchaseLotto",
+    value: function submitPurchaseLotto(event) {
+      var purchaseMoney = event.detail;
+
+      if (!(0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidPurchaseMoney)(purchaseMoney)) {
+        alert(_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_MESSAGE.IS_NOT_VALID_PURCHASE_MONEY);
+        this.lottoPurchaseInputView.resetPurchaseMoney();
+        return;
+      }
+
+      this.lottoPurchaseInputView.disablePurchaseLottoForm();
+      this.lottoPurchaseResultView.renderLottoPurchaseCount(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
+      this.lottoModel.setLottoList(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
+      this.lottoPurchaseResultView.renderLottoPurchaseResult(this.lottoModel.getLottoList());
     }
   }]);
 
   return LottoController;
 }();
-
-function _submitView2() {
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoPurchaseInputView).lottoPurchaseForm, '@purchaseMoney', _classPrivateMethodGet(this, _submitPurchaseLotto, _submitPurchaseLotto2).bind(this));
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoPurchaseResultView).showLottoToggle, '@lottoToggle', _classPrivateMethodGet(this, _submitLottoToggle, _submitLottoToggle2).bind(this));
-}
-
-function _submitLottoToggle2() {
-  _classPrivateFieldGet(this, _lottoPurchaseResultView).toggleLottoNumbers();
-}
-
-function _submitPurchaseLotto2(event) {
-  var purchaseMoney = event.detail;
-
-  if (!(0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidPurchaseMoney)(purchaseMoney)) {
-    alert(_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_MESSAGE.IS_NOT_VALID_PURCHASE_MONEY);
-
-    _classPrivateFieldGet(this, _lottoPurchaseInputView).resetPurchaseMoney();
-
-    return;
-  }
-
-  _classPrivateFieldGet(this, _lottoPurchaseInputView).disablePurchaseLottoForm();
-
-  _classPrivateFieldGet(this, _lottoPurchaseResultView).renderLottoPurchaseCount(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
-
-  _classPrivateFieldGet(this, _lottoModel).createLottoList(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
-
-  _classPrivateFieldGet(this, _lottoPurchaseResultView).renderLottoPurchaseResult(_classPrivateFieldGet(this, _lottoModel).lottoList);
-}
 
 
 
@@ -199,13 +136,13 @@ var LottoModel = /*#__PURE__*/function () {
   }
 
   _createClass(LottoModel, [{
-    key: "lottoList",
-    get: function get() {
+    key: "getLottoList",
+    value: function getLottoList() {
       return _classPrivateFieldGet(this, _lottoList);
     }
   }, {
-    key: "createLottoList",
-    value: function createLottoList(lottoCount) {
+    key: "setLottoList",
+    value: function setLottoList(lottoCount) {
       var _this = this;
 
       _classPrivateFieldSet(this, _lottoList, Array.from({
@@ -402,100 +339,45 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
 
-function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
-
-function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
-
-function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
-
-function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
-
-function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
-
-function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
-
-function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
-
-function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
-
-
-
-var _lottoPurchaseForm = /*#__PURE__*/new WeakMap();
-
-var _lottoPurchaseInput = /*#__PURE__*/new WeakMap();
-
-var _lottoPurchaseButton = /*#__PURE__*/new WeakMap();
-
-var _attachEvents = /*#__PURE__*/new WeakSet();
-
-var _handlePurchaseLotto = /*#__PURE__*/new WeakSet();
 
 var LottoPurchaseInputView = /*#__PURE__*/function () {
   function LottoPurchaseInputView() {
     _classCallCheck(this, LottoPurchaseInputView);
 
-    _classPrivateMethodInitSpec(this, _handlePurchaseLotto);
-
-    _classPrivateMethodInitSpec(this, _attachEvents);
-
-    _classPrivateFieldInitSpec(this, _lottoPurchaseForm, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _lottoPurchaseInput, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _lottoPurchaseButton, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldSet(this, _lottoPurchaseForm, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-form'));
-
-    _classPrivateFieldSet(this, _lottoPurchaseInput, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-input'));
-
-    _classPrivateFieldSet(this, _lottoPurchaseButton, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-button'));
-
-    _classPrivateMethodGet(this, _attachEvents, _attachEvents2).call(this);
+    this.lottoPurchaseForm = (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-form');
+    this.lottoPurchaseInput = (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-input');
+    this.lottoPurchaseButton = (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-button');
+    this.attachEvents();
   }
 
   _createClass(LottoPurchaseInputView, [{
-    key: "lottoPurchaseForm",
-    get: function get() {
-      return _classPrivateFieldGet(this, _lottoPurchaseForm);
+    key: "attachEvents",
+    value: function attachEvents() {
+      (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(this.lottoPurchaseForm, 'submit', this.handlePurchaseLotto.bind(this));
+    }
+  }, {
+    key: "handlePurchaseLotto",
+    value: function handlePurchaseLotto(event) {
+      event.preventDefault();
+      var purchaseMoney = this.lottoPurchaseInput.valueAsNumber;
+      (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(this.lottoPurchaseForm, '@purchaseMoney', purchaseMoney);
     }
   }, {
     key: "resetPurchaseMoney",
     value: function resetPurchaseMoney() {
-      _classPrivateFieldGet(this, _lottoPurchaseForm).reset();
+      this.lottoPurchaseForm.reset();
     }
   }, {
     key: "disablePurchaseLottoForm",
     value: function disablePurchaseLottoForm() {
-      _classPrivateFieldGet(this, _lottoPurchaseInput).disabled = true;
-      _classPrivateFieldGet(this, _lottoPurchaseButton).disabled = true;
+      this.lottoPurchaseInput.disabled = true;
+      this.lottoPurchaseButton.disabled = true;
     }
   }]);
 
   return LottoPurchaseInputView;
 }();
-
-function _attachEvents2() {
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoPurchaseForm), 'submit', _classPrivateMethodGet(this, _handlePurchaseLotto, _handlePurchaseLotto2).bind(this));
-}
-
-function _handlePurchaseLotto2(event) {
-  event.preventDefault();
-
-  var purchaseMoney = _classPrivateFieldGet(this, _lottoPurchaseInput).valueAsNumber;
-
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(_classPrivateFieldGet(this, _lottoPurchaseForm), '@purchaseMoney', purchaseMoney);
-}
 
 
 
@@ -519,101 +401,46 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
-
-function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
-
-function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
-
-function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
-
-function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
-
-function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
-
-function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
-
-function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
-
-function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
 
 
-
-
-var _lottoPurchaseCount = /*#__PURE__*/new WeakMap();
-
-var _lottoList = /*#__PURE__*/new WeakMap();
-
-var _showLottoToggle = /*#__PURE__*/new WeakMap();
-
-var _lottoNumbers = /*#__PURE__*/new WeakMap();
-
-var _attachEvents = /*#__PURE__*/new WeakSet();
-
-var _handleShowLottoToggle = /*#__PURE__*/new WeakSet();
 
 var lottoPurchaseResultView = /*#__PURE__*/function () {
   function lottoPurchaseResultView() {
     _classCallCheck(this, lottoPurchaseResultView);
 
-    _classPrivateMethodInitSpec(this, _handleShowLottoToggle);
-
-    _classPrivateMethodInitSpec(this, _attachEvents);
-
-    _classPrivateFieldInitSpec(this, _lottoPurchaseCount, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _lottoList, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _showLottoToggle, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _lottoNumbers, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldSet(this, _lottoPurchaseCount, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-count'));
-
-    _classPrivateFieldSet(this, _lottoList, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-list'));
-
-    _classPrivateFieldSet(this, _showLottoToggle, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#show-lotto-toggle'));
-
-    _classPrivateMethodGet(this, _attachEvents, _attachEvents2).call(this);
+    this.lottoPurchaseCount = (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-count');
+    this.lottoList = (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-list');
+    this.showLottoToggle = (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#show-lotto-toggle');
+    this.attachEvents();
   }
 
   _createClass(lottoPurchaseResultView, [{
-    key: "showLottoToggle",
-    get: function get() {
-      return _classPrivateFieldGet(this, _showLottoToggle);
+    key: "attachEvents",
+    value: function attachEvents() {
+      (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(this.showLottoToggle, 'click', this.handleShowLottoToggle.bind(this));
+    }
+  }, {
+    key: "handleShowLottoToggle",
+    value: function handleShowLottoToggle() {
+      (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(this.showLottoToggle, '@lottoToggle', '');
     }
   }, {
     key: "renderLottoPurchaseCount",
     value: function renderLottoPurchaseCount(count) {
-      _classPrivateFieldGet(this, _lottoPurchaseCount).textContent = (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoPurchaseCountTemplate)(count);
+      this.lottoPurchaseCount.textContent = (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoPurchaseCountTemplate)(count);
     }
   }, {
     key: "renderLottoPurchaseResult",
     value: function renderLottoPurchaseResult(lottoList) {
-      _classPrivateFieldGet(this, _lottoList).insertAdjacentHTML('afterbegin', (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoPurchaseResultTemplate)(lottoList));
+      this.lottoList.insertAdjacentHTML('afterbegin', (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoPurchaseResultTemplate)(lottoList));
     }
   }, {
     key: "toggleLottoNumbers",
     value: function toggleLottoNumbers() {
-      _classPrivateFieldSet(this, _lottoNumbers, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$$)('.lotto-numbers'));
-
-      _classPrivateFieldGet(this, _lottoList).classList.toggle('grid-columns-six');
-
-      _classPrivateFieldGet(this, _lottoList).classList.toggle('grid-columns-one');
-
-      _classPrivateFieldGet(this, _lottoNumbers).forEach(function (element) {
+      this.lottoNumbers = (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$$)('.lotto-numbers');
+      this.lottoList.classList.toggle('grid-columns-six');
+      this.lottoList.classList.toggle('grid-columns-one');
+      this.lottoNumbers.forEach(function (element) {
         return element.classList.toggle('hidden');
       });
     }
@@ -621,14 +448,6 @@ var lottoPurchaseResultView = /*#__PURE__*/function () {
 
   return lottoPurchaseResultView;
 }();
-
-function _attachEvents2() {
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _showLottoToggle), 'click', _classPrivateMethodGet(this, _handleShowLottoToggle, _handleShowLottoToggle2).bind(this));
-}
-
-function _handleShowLottoToggle2() {
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(_classPrivateFieldGet(this, _showLottoToggle), '@lottoToggle', '');
-}
 
 
 
