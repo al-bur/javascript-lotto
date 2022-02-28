@@ -49,6 +49,8 @@ var _lottoPurchaseInputView = /*#__PURE__*/new WeakMap();
 
 var _lottoPurchaseResultView = /*#__PURE__*/new WeakMap();
 
+var _lottoWinningNumberInputView = /*#__PURE__*/new WeakMap();
+
 var _submitView = /*#__PURE__*/new WeakSet();
 
 var _submitLottoToggle = /*#__PURE__*/new WeakSet();
@@ -80,11 +82,18 @@ var LottoController = /*#__PURE__*/function () {
       value: void 0
     });
 
+    _classPrivateFieldInitSpec(this, _lottoWinningNumberInputView, {
+      writable: true,
+      value: void 0
+    });
+
     _classPrivateFieldSet(this, _lottoModel, lottoModel);
 
     _classPrivateFieldSet(this, _lottoPurchaseInputView, views.lottoPurchaseInputView);
 
     _classPrivateFieldSet(this, _lottoPurchaseResultView, views.lottoPurchaseResultView);
+
+    _classPrivateFieldSet(this, _lottoWinningNumberInputView, views.lottoWinningNumberInputView);
   }
 
   _createClass(LottoController, [{
@@ -124,6 +133,8 @@ function _submitPurchaseLotto2(event) {
   _classPrivateFieldGet(this, _lottoModel).createLottoList(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
 
   _classPrivateFieldGet(this, _lottoPurchaseResultView).renderLottoPurchaseResult(_classPrivateFieldGet(this, _lottoModel).lottoList);
+
+  _classPrivateFieldGet(this, _lottoWinningNumberInputView).renderlottoWinningNumberInput();
 }
 
 
@@ -294,7 +305,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "lottoPurchaseCountTemplate": () => (/* binding */ lottoPurchaseCountTemplate),
 /* harmony export */   "lottoTemplate": () => (/* binding */ lottoTemplate),
-/* harmony export */   "lottoPurchaseResultTemplate": () => (/* binding */ lottoPurchaseResultTemplate)
+/* harmony export */   "lottoPurchaseResultTemplate": () => (/* binding */ lottoPurchaseResultTemplate),
+/* harmony export */   "lottoWinningNumberInputTemplate": () => (/* binding */ lottoWinningNumberInputTemplate)
 /* harmony export */ });
 /* harmony import */ var _images_lotto_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../images/lotto.png */ "./src/images/lotto.png");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -320,6 +332,9 @@ var lottoPurchaseResultTemplate = function lottoPurchaseResultTemplate(lottoList
   return "\n    ".concat(lottoList.map(function (lotto) {
     return lottoTemplate(_toConsumableArray(lotto));
   }).join(''), "\n  ");
+};
+var lottoWinningNumberInputTemplate = function lottoWinningNumberInputTemplate() {
+  return "\n    <section>\n      <form>\n        <p>\uC9C0\uB09C \uC8FC \uB2F9\uCCA8\uBC88\uD638 6\uAC1C\uC640 \uBCF4\uB108\uC2A4 \uBC88\uD638 1\uAC1C\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694</p>\n        <div>\n          <label for=\"lotto-winning-number\">\uB2F9\uCCA8 \uBC88\uD638</label>\n          <input id=\"lotto-winning-number\" class=\"lotto-winning-number-container\" type=\"number\" />\n          <input class=\"lotto-winning-number-container\" type=\"number\" />\n          <input class=\"lotto-winning-number-container\" type=\"number\" />\n          <input class=\"lotto-winning-number-container\" type=\"number\" />\n          <input class=\"lotto-winning-number-container\" type=\"number\" />\n          <input class=\"lotto-winning-number-container\" type=\"number\" />\n        </div>\n        <div>\n          <label for=\"lotto-winning-bonus-number\">\uBCF4\uB108\uC2A4 \uBC88\uD638</label>\n          <input id=\"lotto-winning-bonus-number\" class=\"lotto-winning-number-container\" type=\"number\" />\n        </div>\n        <button type=\"submit\">\uACB0\uACFC \uD655\uC778\uD558\uAE30</button>\n      </form>\n    </section>\n  ";
 };
 
 /***/ }),
@@ -601,6 +616,69 @@ function _handleShowLottoToggle2() {
 
 /***/ }),
 
+/***/ "./src/js/views/lottoWinningNumberInputView.js":
+/*!*****************************************************!*\
+  !*** ./src/js/views/lottoWinningNumberInputView.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ LottoWinningNumberInputView)
+/* harmony export */ });
+/* harmony import */ var _utils_helper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/helper.js */ "./src/js/utils/helper.js");
+/* harmony import */ var _utils_template_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/template.js */ "./src/js/utils/template.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
+
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+
+function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
+
+function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
+
+function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
+
+function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
+
+function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
+
+
+
+
+var _lottoPurchaseResult = /*#__PURE__*/new WeakMap();
+
+var LottoWinningNumberInputView = /*#__PURE__*/function () {
+  function LottoWinningNumberInputView() {
+    _classCallCheck(this, LottoWinningNumberInputView);
+
+    _classPrivateFieldInitSpec(this, _lottoPurchaseResult, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldSet(this, _lottoPurchaseResult, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-result'));
+  }
+
+  _createClass(LottoWinningNumberInputView, [{
+    key: "renderlottoWinningNumberInput",
+    value: function renderlottoWinningNumberInput() {
+      _classPrivateFieldGet(this, _lottoPurchaseResult).insertAdjacentHTML('afterend', (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoWinningNumberInputTemplate)());
+    }
+  }]);
+
+  return LottoWinningNumberInputView;
+}();
+
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/css/index.css":
 /*!*****************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./src/css/index.css ***!
@@ -623,7 +701,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_reset_css__WEBPACK_IMPORTED_MODULE_2__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 40px 0px;\n}\n\nbutton {\n  cursor: pointer;\n}\n\nh1 {\n  text-align: center;\n  font-weight: 600;\n  font-size: 34px;\n  line-height: 36px;\n  margin: 52px 0px 16px 0px;\n}\n\n#app {\n  width: 414px;\n  min-height: 727px;\n  border: 2px solid black;\n  padding: 0px 16px;\n}\n\nlabel[for='purchase-money'] {\n  font-size: 15px;\n  line-height: 24px;\n  letter-spacing: 0.5px;\n}\n\n#lotto-purchase-form > button {\n  background: #00bcd4;\n  border-radius: 4px;\n  width: 56px;\n  height: 36px;\n  padding: 6px 6px 6px 8px;\n  color: #ffffff;\n  font-weight: bold;\n  letter-spacing: 1.25px;\n  margin-left: 15px;\n  outline: none;\n  border: none;\n}\n\n#lotto-purchase-form > button:disabled {\n  background: gray;\n}\n\n#lotto-purchase-input {\n  height: 36px;\n  width: 294px;\n  border: 1px solid #b4b4b4;\n  box-sizing: border-box;\n  border-radius: 4px;\n  padding: 10px 5px;\n}\n\n#lotto-purchase-input::placeholder {\n  color: #8b8b8b;\n}\n\n#lotto-list {\n  display: grid;\n}\n\n.grid-columns-six {\n  grid-template-columns: repeat(7, 1fr);\n}\n\n.grid-columns-one {\n  grid-template-columns: repeat(1, 1fr);\n}\n\n.lotto-wrap {\n  display: flex;\n  flex-direction: row;\n}\n\n.hidden {\n  display: none;\n}\n\n#lotto-purchase-result {\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  justify-content: space-between;\n  margin-top: 28px;\n}\n\n#lotto-list-wrap {\n  width: 80%;\n}\n\n.lotto-wrap {\n  font-size: 30px;\n  margin-right: 8px;\n}\n\n.lotto-numbers {\n  font-size: 16px;\n  line-height: 38px;\n  margin-left: 6px;\n  word-spacing: 1px;\n}\n\n#lotto-toggle-wrap {\n  display: flex;\n  flex-direction: column;\n}\n\n.switch {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 20px;\n  margin-top: 4px;\n  margin-left: 24px;\n}\n\n#show-lotto-toggle {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 3px;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: '';\n  height: 13px;\n  width: 13px;\n  left: 4px;\n  bottom: 2px;\n  background-color: white;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\ninput:checked + .slider {\n  background-color: #2196f3;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(10px);\n}\n\n.slider.round {\n  border-radius: 34px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n", "",{"version":3,"sources":["webpack://./src/css/index.css"],"names":[],"mappings":"AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,gBAAgB;AAClB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,gBAAgB;EAChB,eAAe;EACf,iBAAiB;EACjB,yBAAyB;AAC3B;;AAEA;EACE,YAAY;EACZ,iBAAiB;EACjB,uBAAuB;EACvB,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,qBAAqB;AACvB;;AAEA;EACE,mBAAmB;EACnB,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,wBAAwB;EACxB,cAAc;EACd,iBAAiB;EACjB,sBAAsB;EACtB,iBAAiB;EACjB,aAAa;EACb,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,YAAY;EACZ,YAAY;EACZ,yBAAyB;EACzB,sBAAsB;EACtB,kBAAkB;EAClB,iBAAiB;AACnB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,qCAAqC;AACvC;;AAEA;EACE,qCAAqC;AACvC;;AAEA;EACE,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,WAAW;EACX,gBAAgB;EAChB,aAAa;EACb,8BAA8B;EAC9B,gBAAgB;AAClB;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,gBAAgB;EAChB,iBAAiB;AACnB;;AAEA;EACE,aAAa;EACb,sBAAsB;AACxB;;AAEA;EACE,kBAAkB;EAClB,qBAAqB;EACrB,WAAW;EACX,YAAY;EACZ,eAAe;EACf,iBAAiB;AACnB;;AAEA;EACE,UAAU;EACV,QAAQ;EACR,SAAS;AACX;;AAEA;EACE,kBAAkB;EAClB,eAAe;EACf,QAAQ;EACR,OAAO;EACP,QAAQ;EACR,SAAS;EACT,sBAAsB;EACtB,wBAAwB;EACxB,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,WAAW;EACX,SAAS;EACT,WAAW;EACX,uBAAuB;EACvB,wBAAwB;EACxB,gBAAgB;AAClB;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;EACE,mCAAmC;EACnC,+BAA+B;EAC/B,2BAA2B;AAC7B;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;AACpB","sourcesContent":["@import url('reset.css');\n\nbody {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 40px 0px;\n}\n\nbutton {\n  cursor: pointer;\n}\n\nh1 {\n  text-align: center;\n  font-weight: 600;\n  font-size: 34px;\n  line-height: 36px;\n  margin: 52px 0px 16px 0px;\n}\n\n#app {\n  width: 414px;\n  min-height: 727px;\n  border: 2px solid black;\n  padding: 0px 16px;\n}\n\nlabel[for='purchase-money'] {\n  font-size: 15px;\n  line-height: 24px;\n  letter-spacing: 0.5px;\n}\n\n#lotto-purchase-form > button {\n  background: #00bcd4;\n  border-radius: 4px;\n  width: 56px;\n  height: 36px;\n  padding: 6px 6px 6px 8px;\n  color: #ffffff;\n  font-weight: bold;\n  letter-spacing: 1.25px;\n  margin-left: 15px;\n  outline: none;\n  border: none;\n}\n\n#lotto-purchase-form > button:disabled {\n  background: gray;\n}\n\n#lotto-purchase-input {\n  height: 36px;\n  width: 294px;\n  border: 1px solid #b4b4b4;\n  box-sizing: border-box;\n  border-radius: 4px;\n  padding: 10px 5px;\n}\n\n#lotto-purchase-input::placeholder {\n  color: #8b8b8b;\n}\n\n#lotto-list {\n  display: grid;\n}\n\n.grid-columns-six {\n  grid-template-columns: repeat(7, 1fr);\n}\n\n.grid-columns-one {\n  grid-template-columns: repeat(1, 1fr);\n}\n\n.lotto-wrap {\n  display: flex;\n  flex-direction: row;\n}\n\n.hidden {\n  display: none;\n}\n\n#lotto-purchase-result {\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  justify-content: space-between;\n  margin-top: 28px;\n}\n\n#lotto-list-wrap {\n  width: 80%;\n}\n\n.lotto-wrap {\n  font-size: 30px;\n  margin-right: 8px;\n}\n\n.lotto-numbers {\n  font-size: 16px;\n  line-height: 38px;\n  margin-left: 6px;\n  word-spacing: 1px;\n}\n\n#lotto-toggle-wrap {\n  display: flex;\n  flex-direction: column;\n}\n\n.switch {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 20px;\n  margin-top: 4px;\n  margin-left: 24px;\n}\n\n#show-lotto-toggle {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 3px;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: '';\n  height: 13px;\n  width: 13px;\n  left: 4px;\n  bottom: 2px;\n  background-color: white;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\ninput:checked + .slider {\n  background-color: #2196f3;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(10px);\n}\n\n.slider.round {\n  border-radius: 34px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 40px 0px;\n}\n\nbutton {\n  cursor: pointer;\n}\n\nh1 {\n  text-align: center;\n  font-weight: 600;\n  font-size: 34px;\n  line-height: 36px;\n  margin: 52px 0px 16px 0px;\n}\n\np,\nlabel {\n  font-size: 15px;\n}\n\n#app {\n  width: 414px;\n  min-height: 727px;\n  border: 2px solid black;\n  padding: 0px 16px;\n}\n\nlabel[for='purchase-money'] {\n  line-height: 24px;\n  letter-spacing: 0.5px;\n}\n\n#lotto-purchase-form > button {\n  background: #00bcd4;\n  border-radius: 4px;\n  width: 56px;\n  height: 36px;\n  padding: 6px 6px 6px 8px;\n  color: #ffffff;\n  font-weight: bold;\n  letter-spacing: 1.25px;\n  margin-left: 15px;\n  outline: none;\n  border: none;\n}\n\n#lotto-purchase-form > button:disabled {\n  background: gray;\n}\n\n#lotto-purchase-input {\n  height: 36px;\n  width: 294px;\n  border: 1px solid #b4b4b4;\n  box-sizing: border-box;\n  border-radius: 4px;\n  padding: 10px 5px;\n}\n\n#lotto-purchase-input::placeholder {\n  color: #8b8b8b;\n}\n\n#lotto-list {\n  display: grid;\n}\n\n.grid-columns-six {\n  grid-template-columns: repeat(7, 1fr);\n}\n\n.grid-columns-one {\n  grid-template-columns: repeat(1, 1fr);\n}\n\n.lotto-wrap {\n  display: flex;\n  flex-direction: row;\n}\n\n.hidden {\n  display: none;\n}\n\n#lotto-purchase-result {\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  justify-content: space-between;\n  margin-top: 28px;\n}\n\n#lotto-list-wrap {\n  width: 80%;\n}\n\n.lotto-wrap {\n  font-size: 30px;\n  margin-right: 8px;\n}\n\n.lotto-numbers {\n  font-size: 16px;\n  line-height: 38px;\n  margin-left: 6px;\n  word-spacing: 1px;\n}\n\n#lotto-toggle-wrap {\n  display: flex;\n  flex-direction: column;\n}\n\n.lotto-winning-number-container {\n  width: 34px;\n  height: 36px;\n  border-radius: 4px;\n  outline: none;\n  border: 1px solid #b4b4b4;\n}\n\n.switch {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 20px;\n  margin-top: 4px;\n  margin-left: 24px;\n}\n\n#show-lotto-toggle {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 3px;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: '';\n  height: 13px;\n  width: 13px;\n  left: 4px;\n  bottom: 2px;\n  background-color: white;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\ninput:checked + .slider {\n  background-color: #2196f3;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(10px);\n}\n\n.slider.round {\n  border-radius: 34px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n", "",{"version":3,"sources":["webpack://./src/css/index.css"],"names":[],"mappings":"AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,gBAAgB;AAClB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,gBAAgB;EAChB,eAAe;EACf,iBAAiB;EACjB,yBAAyB;AAC3B;;AAEA;;EAEE,eAAe;AACjB;;AAEA;EACE,YAAY;EACZ,iBAAiB;EACjB,uBAAuB;EACvB,iBAAiB;AACnB;;AAEA;EACE,iBAAiB;EACjB,qBAAqB;AACvB;;AAEA;EACE,mBAAmB;EACnB,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,wBAAwB;EACxB,cAAc;EACd,iBAAiB;EACjB,sBAAsB;EACtB,iBAAiB;EACjB,aAAa;EACb,YAAY;AACd;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,YAAY;EACZ,YAAY;EACZ,yBAAyB;EACzB,sBAAsB;EACtB,kBAAkB;EAClB,iBAAiB;AACnB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,qCAAqC;AACvC;;AAEA;EACE,qCAAqC;AACvC;;AAEA;EACE,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,WAAW;EACX,gBAAgB;EAChB,aAAa;EACb,8BAA8B;EAC9B,gBAAgB;AAClB;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,gBAAgB;EAChB,iBAAiB;AACnB;;AAEA;EACE,aAAa;EACb,sBAAsB;AACxB;;AAEA;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,aAAa;EACb,yBAAyB;AAC3B;;AAEA;EACE,kBAAkB;EAClB,qBAAqB;EACrB,WAAW;EACX,YAAY;EACZ,eAAe;EACf,iBAAiB;AACnB;;AAEA;EACE,UAAU;EACV,QAAQ;EACR,SAAS;AACX;;AAEA;EACE,kBAAkB;EAClB,eAAe;EACf,QAAQ;EACR,OAAO;EACP,QAAQ;EACR,SAAS;EACT,sBAAsB;EACtB,wBAAwB;EACxB,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,WAAW;EACX,SAAS;EACT,WAAW;EACX,uBAAuB;EACvB,wBAAwB;EACxB,gBAAgB;AAClB;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;EACE,mCAAmC;EACnC,+BAA+B;EAC/B,2BAA2B;AAC7B;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;AACpB","sourcesContent":["@import url('reset.css');\n\nbody {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 40px 0px;\n}\n\nbutton {\n  cursor: pointer;\n}\n\nh1 {\n  text-align: center;\n  font-weight: 600;\n  font-size: 34px;\n  line-height: 36px;\n  margin: 52px 0px 16px 0px;\n}\n\np,\nlabel {\n  font-size: 15px;\n}\n\n#app {\n  width: 414px;\n  min-height: 727px;\n  border: 2px solid black;\n  padding: 0px 16px;\n}\n\nlabel[for='purchase-money'] {\n  line-height: 24px;\n  letter-spacing: 0.5px;\n}\n\n#lotto-purchase-form > button {\n  background: #00bcd4;\n  border-radius: 4px;\n  width: 56px;\n  height: 36px;\n  padding: 6px 6px 6px 8px;\n  color: #ffffff;\n  font-weight: bold;\n  letter-spacing: 1.25px;\n  margin-left: 15px;\n  outline: none;\n  border: none;\n}\n\n#lotto-purchase-form > button:disabled {\n  background: gray;\n}\n\n#lotto-purchase-input {\n  height: 36px;\n  width: 294px;\n  border: 1px solid #b4b4b4;\n  box-sizing: border-box;\n  border-radius: 4px;\n  padding: 10px 5px;\n}\n\n#lotto-purchase-input::placeholder {\n  color: #8b8b8b;\n}\n\n#lotto-list {\n  display: grid;\n}\n\n.grid-columns-six {\n  grid-template-columns: repeat(7, 1fr);\n}\n\n.grid-columns-one {\n  grid-template-columns: repeat(1, 1fr);\n}\n\n.lotto-wrap {\n  display: flex;\n  flex-direction: row;\n}\n\n.hidden {\n  display: none;\n}\n\n#lotto-purchase-result {\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  justify-content: space-between;\n  margin-top: 28px;\n}\n\n#lotto-list-wrap {\n  width: 80%;\n}\n\n.lotto-wrap {\n  font-size: 30px;\n  margin-right: 8px;\n}\n\n.lotto-numbers {\n  font-size: 16px;\n  line-height: 38px;\n  margin-left: 6px;\n  word-spacing: 1px;\n}\n\n#lotto-toggle-wrap {\n  display: flex;\n  flex-direction: column;\n}\n\n.lotto-winning-number-container {\n  width: 34px;\n  height: 36px;\n  border-radius: 4px;\n  outline: none;\n  border: 1px solid #b4b4b4;\n}\n\n.switch {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 20px;\n  margin-top: 4px;\n  margin-left: 24px;\n}\n\n#show-lotto-toggle {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 3px;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: '';\n  height: 13px;\n  width: 13px;\n  left: 4px;\n  bottom: 2px;\n  background-color: white;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\ninput:checked + .slider {\n  background-color: #2196f3;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(10px);\n}\n\n.slider.round {\n  border-radius: 34px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1251,7 +1329,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lottoModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lottoModel.js */ "./src/js/lottoModel.js");
 /* harmony import */ var _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/lottoPurchaseInputView.js */ "./src/js/views/lottoPurchaseInputView.js");
 /* harmony import */ var _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/lottoPurchaseResultView.js */ "./src/js/views/lottoPurchaseResultView.js");
-/* harmony import */ var _css_index_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../css/index.css */ "./src/css/index.css");
+/* harmony import */ var _views_lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/lottoWinningNumberInputView.js */ "./src/js/views/lottoWinningNumberInputView.js");
+/* harmony import */ var _css_index_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../css/index.css */ "./src/css/index.css");
+
 
 
 
@@ -1262,7 +1342,8 @@ var startLotto = function startLotto() {
   var lottoModel = new _lottoModel_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
   var views = {
     lottoPurchaseInputView: new _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_2__["default"](),
-    lottoPurchaseResultView: new _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_3__["default"]()
+    lottoPurchaseResultView: new _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_3__["default"](),
+    lottoWinningNumberInputView: new _views_lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_4__["default"]()
   };
   var lottoController = new _lottoController_js__WEBPACK_IMPORTED_MODULE_0__["default"](lottoModel, views);
   lottoController.init();
