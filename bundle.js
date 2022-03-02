@@ -43,7 +43,7 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 
 
-var _lottoModel = /*#__PURE__*/new WeakMap();
+var _lottoCreator = /*#__PURE__*/new WeakMap();
 
 var _lottoPurchaseInputView = /*#__PURE__*/new WeakMap();
 
@@ -58,7 +58,7 @@ var _submitLottoToggle = /*#__PURE__*/new WeakSet();
 var _submitPurchaseLotto = /*#__PURE__*/new WeakSet();
 
 var LottoController = /*#__PURE__*/function () {
-  function LottoController(lottoModel, views) {
+  function LottoController(lottoCreator, views) {
     _classCallCheck(this, LottoController);
 
     _classPrivateMethodInitSpec(this, _submitPurchaseLotto);
@@ -67,7 +67,7 @@ var LottoController = /*#__PURE__*/function () {
 
     _classPrivateMethodInitSpec(this, _submitView);
 
-    _classPrivateFieldInitSpec(this, _lottoModel, {
+    _classPrivateFieldInitSpec(this, _lottoCreator, {
       writable: true,
       value: void 0
     });
@@ -87,7 +87,7 @@ var LottoController = /*#__PURE__*/function () {
       value: void 0
     });
 
-    _classPrivateFieldSet(this, _lottoModel, lottoModel);
+    _classPrivateFieldSet(this, _lottoCreator, lottoCreator);
 
     _classPrivateFieldSet(this, _lottoPurchaseInputView, views.lottoPurchaseInputView);
 
@@ -130,9 +130,9 @@ function _submitPurchaseLotto2(event) {
 
   _classPrivateFieldGet(this, _lottoPurchaseResultView).renderLottoPurchaseCount(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
 
-  _classPrivateFieldGet(this, _lottoModel).createLottoList(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
+  _classPrivateFieldGet(this, _lottoCreator).createLottoList(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
 
-  _classPrivateFieldGet(this, _lottoPurchaseResultView).renderLottoPurchaseResult(_classPrivateFieldGet(this, _lottoModel).lottoList);
+  _classPrivateFieldGet(this, _lottoPurchaseResultView).renderLottoPurchaseResult(_classPrivateFieldGet(this, _lottoCreator).lottoList);
 
   _classPrivateFieldGet(this, _lottoWinningNumberInputView).renderlottoWinningNumberInput();
 }
@@ -141,17 +141,17 @@ function _submitPurchaseLotto2(event) {
 
 /***/ }),
 
-/***/ "./src/js/lottoModel.js":
-/*!******************************!*\
-  !*** ./src/js/lottoModel.js ***!
-  \******************************/
+/***/ "./src/js/model/lottoCreator.js":
+/*!**************************************!*\
+  !*** ./src/js/model/lottoCreator.js ***!
+  \**************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ LottoModel)
+/* harmony export */   "default": () => (/* binding */ LottoCreator)
 /* harmony export */ });
-/* harmony import */ var _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/constants.js */ "./src/js/utils/constants.js");
+/* harmony import */ var _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/constants.js */ "./src/js/utils/constants.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -184,9 +184,9 @@ var _generateLotto = /*#__PURE__*/new WeakSet();
 
 var _generateRandomNum = /*#__PURE__*/new WeakSet();
 
-var LottoModel = /*#__PURE__*/function () {
-  function LottoModel() {
-    _classCallCheck(this, LottoModel);
+var LottoCreator = /*#__PURE__*/function () {
+  function LottoCreator() {
+    _classCallCheck(this, LottoCreator);
 
     _classPrivateMethodInitSpec(this, _generateRandomNum);
 
@@ -198,9 +198,11 @@ var LottoModel = /*#__PURE__*/function () {
     });
 
     _classPrivateFieldSet(this, _lottoList, []);
+
+    this.lottoMatchingResult = {};
   }
 
-  _createClass(LottoModel, [{
+  _createClass(LottoCreator, [{
     key: "lottoList",
     get: function get() {
       return _classPrivateFieldGet(this, _lottoList);
@@ -218,7 +220,7 @@ var LottoModel = /*#__PURE__*/function () {
     }
   }]);
 
-  return LottoModel;
+  return LottoCreator;
 }();
 
 function _generateLotto2() {
@@ -1326,7 +1328,7 @@ var __webpack_exports__ = {};
   \*************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lottoController_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lottoController.js */ "./src/js/lottoController.js");
-/* harmony import */ var _lottoModel_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lottoModel.js */ "./src/js/lottoModel.js");
+/* harmony import */ var _model_lottoCreator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./model/lottoCreator.js */ "./src/js/model/lottoCreator.js");
 /* harmony import */ var _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/lottoPurchaseInputView.js */ "./src/js/views/lottoPurchaseInputView.js");
 /* harmony import */ var _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/lottoPurchaseResultView.js */ "./src/js/views/lottoPurchaseResultView.js");
 /* harmony import */ var _views_lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/lottoWinningNumberInputView.js */ "./src/js/views/lottoWinningNumberInputView.js");
@@ -1339,7 +1341,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var startLotto = function startLotto() {
-  var lottoModel = new _lottoModel_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
+  var lottoModel = new _model_lottoCreator_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
   var views = {
     lottoPurchaseInputView: new _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_2__["default"](),
     lottoPurchaseResultView: new _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_3__["default"](),
