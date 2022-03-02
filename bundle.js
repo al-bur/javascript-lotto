@@ -326,7 +326,7 @@ var lottoPurchaseCountTemplate = function lottoPurchaseCountTemplate(count) {
   return "\n    \uCD1D ".concat(count, "\uAC1C\uB97C \uAD6C\uB9E4\uD558\uC600\uC2B5\uB2C8\uB2E4.\n  ");
 };
 var lottoTemplate = function lottoTemplate(numbers) {
-  return "\n    <div class=\"lotto-wrap\">\n      <img src=".concat(_images_lotto_png__WEBPACK_IMPORTED_MODULE_0__["default"], " />\n      <p class=\"lotto-numbers hidden\">").concat(numbers.join(', '), "</p>\n    </div>\n  ");
+  return "\n    <li class=\"lotto-wrap\">\n      <img src=".concat(_images_lotto_png__WEBPACK_IMPORTED_MODULE_0__["default"], " />\n      <p class=\"lotto-numbers hidden\">").concat(numbers.join(', '), "</p>\n    </li>\n  ");
 };
 var lottoPurchaseResultTemplate = function lottoPurchaseResultTemplate(lottoList) {
   return "\n    ".concat(lottoList.map(function (lotto) {
