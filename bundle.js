@@ -158,13 +158,9 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
-
 function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
 
 function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
-
-function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
 
 function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
 
@@ -180,17 +176,9 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 var _lottoList = /*#__PURE__*/new WeakMap();
 
-var _generateLotto = /*#__PURE__*/new WeakSet();
-
-var _generateRandomNum = /*#__PURE__*/new WeakSet();
-
 var LottoCreator = /*#__PURE__*/function () {
   function LottoCreator() {
     _classCallCheck(this, LottoCreator);
-
-    _classPrivateMethodInitSpec(this, _generateRandomNum);
-
-    _classPrivateMethodInitSpec(this, _generateLotto);
 
     _classPrivateFieldInitSpec(this, _lottoList, {
       writable: true,
@@ -210,32 +198,32 @@ var LottoCreator = /*#__PURE__*/function () {
   }, {
     key: "createLottoList",
     value: function createLottoList(lottoCount) {
-      var _this = this;
-
       _classPrivateFieldSet(this, _lottoList, Array.from({
         length: lottoCount
       }).map(function () {
-        return _classPrivateMethodGet(_this, _generateLotto, _generateLotto2).call(_this);
+        return LottoCreator.generateLotto();
       }));
+    }
+  }], [{
+    key: "generateLotto",
+    value: function generateLotto() {
+      var lottoNum = new Set();
+
+      while (lottoNum.size < _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO.NUMBER_LENGTH) {
+        lottoNum.add(LottoCreator.generateRandomNum());
+      }
+
+      return lottoNum;
+    }
+  }, {
+    key: "generateRandomNum",
+    value: function generateRandomNum() {
+      return Math.floor(Math.random() * (_utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO.MAX_DIGIT - _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO.MIN_DIGIT + 1)) + _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO.MIN_DIGIT;
     }
   }]);
 
   return LottoCreator;
 }();
-
-function _generateLotto2() {
-  var lottoNum = new Set();
-
-  while (lottoNum.size < _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO.NUMBER_LENGTH) {
-    lottoNum.add(_classPrivateMethodGet(this, _generateRandomNum, _generateRandomNum2).call(this));
-  }
-
-  return lottoNum;
-}
-
-function _generateRandomNum2() {
-  return Math.floor(Math.random() * (_utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO.MAX_DIGIT - _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO.MIN_DIGIT + 1)) + _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO.MIN_DIGIT;
-}
 
 
 
