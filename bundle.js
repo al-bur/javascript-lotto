@@ -111,7 +111,7 @@ var LottoController = /*#__PURE__*/function () {
 
     _classPrivateFieldSet(this, _lottoCreator, models.lottoCreator);
 
-    _classPrivateFieldSet(this, _lottoResultManager, models.lottoResultManager);
+    _classPrivateFieldSet(this, _lottoResultManager, models.LottoResultManager);
 
     _classPrivateFieldSet(this, _lottoPurchaseInputView, views.lottoPurchaseInputView);
 
@@ -181,9 +181,9 @@ function _submitMatchResult2(event) {
       lottoWinningBonusNumber = _event$detail.lottoWinningBonusNumber;
 
   if ((0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidLottoWinningNumbers)(lottoWinningNumbers, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT) && (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidLottoWinningBonusNumber)(lottoWinningNumbers, lottoWinningBonusNumber, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT)) {
-    _classPrivateFieldGet(this, _lottoResultManager).createLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, _classPrivateFieldGet(this, _lottoCreator).lottoList);
+    var lottoMatchResult = _classPrivateFieldGet(this, _lottoResultManager).calcLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, _classPrivateFieldGet(this, _lottoCreator).lottoList);
 
-    _classPrivateFieldGet(this, _lottoResultView).render(_classPrivateFieldGet(this, _lottoResultManager).lottoMatchingResult);
+    _classPrivateFieldGet(this, _lottoResultView).render(lottoMatchResult);
 
     return;
   }
@@ -249,8 +249,6 @@ var LottoCreator = /*#__PURE__*/function () {
     });
 
     _classPrivateFieldSet(this, _lottoList, []);
-
-    this.lottoMatchingResult = {};
 
     _classPrivateFieldSet(this, _purchaseMoney, 0);
   }
@@ -323,66 +321,31 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
-function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
-
-function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
-
-function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
-
-function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
-
-function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
-
-function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
-
-function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
-
 /* eslint-disable max-lines-per-function */
 
 
-var _lottoMatchingResult = /*#__PURE__*/new WeakMap();
-
 var LottoResultManager = /*#__PURE__*/function () {
   function LottoResultManager() {
-    var _classPrivateFieldSet2;
-
     _classCallCheck(this, LottoResultManager);
-
-    _classPrivateFieldInitSpec(this, _lottoMatchingResult, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldSet(this, _lottoMatchingResult, (_classPrivateFieldSet2 = {}, _defineProperty(_classPrivateFieldSet2, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.THREE, 0), _defineProperty(_classPrivateFieldSet2, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FOUR, 0), _defineProperty(_classPrivateFieldSet2, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE, 0), _defineProperty(_classPrivateFieldSet2, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS, 0), _defineProperty(_classPrivateFieldSet2, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.SIX, 0), _defineProperty(_classPrivateFieldSet2, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.NOTHING, 0), _classPrivateFieldSet2));
   }
 
-  _createClass(LottoResultManager, [{
-    key: "lottoMatchingResult",
-    get: function get() {
-      return _classPrivateFieldGet(this, _lottoMatchingResult);
-    }
-  }, {
-    key: "createLottoMatchingResult",
-    value: function createLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, lottoList) {
-      _classPrivateFieldSet(this, _lottoMatchingResult, this.calcLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, lottoList));
-    } // 15줄 넘기지 않도록 하기
-
-  }, {
+  _createClass(LottoResultManager, null, [{
     key: "calcLottoMatchingResult",
-    value: function calcLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, lottoList) {
-      var _this = this;
+    value: // 15줄 넘기지 않도록 하기
+    function calcLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, lottoList) {
+      var _lottoMatchingResult;
 
-      console.log(lottoList);
+      var lottoMatchingResult = (_lottoMatchingResult = {}, _defineProperty(_lottoMatchingResult, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.THREE, 0), _defineProperty(_lottoMatchingResult, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FOUR, 0), _defineProperty(_lottoMatchingResult, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE, 0), _defineProperty(_lottoMatchingResult, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS, 0), _defineProperty(_lottoMatchingResult, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.SIX, 0), _defineProperty(_lottoMatchingResult, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.NOTHING, 0), _lottoMatchingResult);
       lottoList.forEach(function (lotto) {
         var matchedNumCount = lotto.filter(function (num) {
           return lottoWinningNumbers.includes(num);
         }).length;
         var keyByMatchedNumCount = LottoResultManager.getKeyByMatchedNumCount(matchedNumCount, lotto, lottoWinningBonusNumber);
-        _classPrivateFieldGet(_this, _lottoMatchingResult)[keyByMatchedNumCount] += 1;
+        lottoMatchingResult[keyByMatchedNumCount] += 1;
       });
-      return _classPrivateFieldGet(this, _lottoMatchingResult);
+      return lottoMatchingResult;
     }
-  }], [{
+  }, {
     key: "getKeyByMatchedNumCount",
     value: function getKeyByMatchedNumCount(matchedNumCount, lotto, lottoWinningBonusNumber) {
       var key;
@@ -1763,7 +1726,7 @@ __webpack_require__.r(__webpack_exports__);
 var startLotto = function startLotto() {
   var models = {
     lottoCreator: new _model_lottoCreator_js__WEBPACK_IMPORTED_MODULE_1__["default"](),
-    lottoResultManager: new _model_lottoResultManager_js__WEBPACK_IMPORTED_MODULE_2__["default"]()
+    LottoResultManager: _model_lottoResultManager_js__WEBPACK_IMPORTED_MODULE_2__["default"]
   };
   var views = {
     lottoPurchaseInputView: new _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_3__["default"](),
