@@ -45,6 +45,8 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 var _lottoCreator = /*#__PURE__*/new WeakMap();
 
+var _lottoResultManager = /*#__PURE__*/new WeakMap();
+
 var _lottoPurchaseInputView = /*#__PURE__*/new WeakMap();
 
 var _lottoPurchaseResultView = /*#__PURE__*/new WeakMap();
@@ -62,7 +64,7 @@ var _submitPurchaseLotto = /*#__PURE__*/new WeakSet();
 var _submitMatchResult = /*#__PURE__*/new WeakSet();
 
 var LottoController = /*#__PURE__*/function () {
-  function LottoController(lottoCreator, views) {
+  function LottoController(models, views) {
     _classCallCheck(this, LottoController);
 
     _classPrivateMethodInitSpec(this, _submitMatchResult);
@@ -76,6 +78,11 @@ var LottoController = /*#__PURE__*/function () {
     _classPrivateMethodInitSpec(this, _submitInitialView);
 
     _classPrivateFieldInitSpec(this, _lottoCreator, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _lottoResultManager, {
       writable: true,
       value: void 0
     });
@@ -95,7 +102,9 @@ var LottoController = /*#__PURE__*/function () {
       value: void 0
     });
 
-    _classPrivateFieldSet(this, _lottoCreator, lottoCreator);
+    _classPrivateFieldSet(this, _lottoCreator, models.lottoCreator);
+
+    _classPrivateFieldSet(this, _lottoResultManager, models.lottoResultManager);
 
     _classPrivateFieldSet(this, _lottoPurchaseInputView, views.lottoPurchaseInputView);
 
@@ -108,15 +117,15 @@ var LottoController = /*#__PURE__*/function () {
     key: "init",
     value: function init() {
       _classPrivateMethodGet(this, _submitInitialView, _submitInitialView2).call(this);
-    } // #submitBlockNotNumberInput(event) {
-    //   event.preventDefault();
-    //   console.log(event.detail);
-    // }
-
+    }
   }]);
 
   return LottoController;
-}();
+}(); // #submitBlockNotNumberInput(event) {
+//   event.preventDefault();
+//   console.log(event.detail);
+// }
+
 
 function _submitInitialView2() {
   (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoPurchaseInputView).lottoPurchaseForm, '@purchaseMoney', _classPrivateMethodGet(this, _submitPurchaseLotto, _submitPurchaseLotto2).bind(this));
@@ -134,36 +143,46 @@ function _submitLottoToggle2() {
 function _submitPurchaseLotto2(event) {
   var purchaseMoney = event.detail;
 
-  if (!(0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidPurchaseMoney)(purchaseMoney)) {
-    alert(_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_MESSAGE.IS_NOT_VALID_PURCHASE_MONEY);
+  if ((0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidPurchaseMoney)(purchaseMoney)) {
+    _classPrivateFieldGet(this, _lottoPurchaseInputView).disablePurchaseLottoForm(); // 로또 자동 번호 생성 및 렌더링
 
-    _classPrivateFieldGet(this, _lottoPurchaseInputView).resetPurchaseMoney();
+
+    _classPrivateFieldGet(this, _lottoCreator).createLottoList(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
+
+    _classPrivateFieldGet(this, _lottoPurchaseResultView).render(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT, _classPrivateFieldGet(this, _lottoCreator).lottoList); // 당첨 번호 입력 렌더링
+
+
+    _classPrivateFieldGet(this, _lottoWinningNumberInputView).render();
+
+    _classPrivateFieldGet(this, _lottoWinningNumberInputView).selectDOM();
+
+    _classPrivateFieldGet(this, _lottoWinningNumberInputView).attachEvents();
+
+    _classPrivateMethodGet(this, _submitLottoWinningNumberInputView, _submitLottoWinningNumberInputView2).call(this);
 
     return;
   }
 
-  _classPrivateFieldGet(this, _lottoPurchaseInputView).disablePurchaseLottoForm(); // 로또 자동 번호 생성 및 렌더링
+  alert(_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_MESSAGE.IS_NOT_VALID_PURCHASE_MONEY);
 
-
-  _classPrivateFieldGet(this, _lottoCreator).createLottoList(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
-
-  _classPrivateFieldGet(this, _lottoPurchaseResultView).render(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT, _classPrivateFieldGet(this, _lottoCreator).lottoList); // 당첨 번호 입력 렌더링
-
-
-  _classPrivateFieldGet(this, _lottoWinningNumberInputView).render();
-
-  _classPrivateFieldGet(this, _lottoWinningNumberInputView).selectDOM();
-
-  _classPrivateFieldGet(this, _lottoWinningNumberInputView).attachEvents();
-
-  _classPrivateMethodGet(this, _submitLottoWinningNumberInputView, _submitLottoWinningNumberInputView2).call(this);
+  _classPrivateFieldGet(this, _lottoPurchaseInputView).resetPurchaseMoney();
 }
 
 function _submitMatchResult2(event) {
   var _event$detail = event.detail,
       lottoWinningNumbers = _event$detail.lottoWinningNumbers,
       lottoWinningBonusNumber = _event$detail.lottoWinningBonusNumber;
-  console.log(lottoWinningNumbers, lottoWinningBonusNumber);
+
+  if ((0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidLottoWinningNumbers)(lottoWinningNumbers, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT) && (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidLottoWinningBonusNumber)(lottoWinningNumbers, lottoWinningBonusNumber, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT)) {
+    _classPrivateFieldGet(this, _lottoResultManager).createLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, _classPrivateFieldGet(this, _lottoCreator).lottoList);
+
+    console.log(_classPrivateFieldGet(this, _lottoResultManager).lottoMatchingResult);
+    return;
+  }
+
+  alert(_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_MESSAGE.IS_NOT_VALID_LOTTO_WINNING_NUMBERS);
+
+  _classPrivateFieldGet(this, _lottoWinningNumberInputView).reset();
 }
 
 
@@ -242,7 +261,7 @@ var LottoCreator = /*#__PURE__*/function () {
         lottoNum.add(LottoCreator.generateRandomNum());
       }
 
-      return lottoNum;
+      return Array.from(lottoNum);
     }
   }, {
     key: "generateRandomNum",
@@ -252,6 +271,121 @@ var LottoCreator = /*#__PURE__*/function () {
   }]);
 
   return LottoCreator;
+}();
+
+
+
+/***/ }),
+
+/***/ "./src/js/model/lottoResultManager.js":
+/*!********************************************!*\
+  !*** ./src/js/model/lottoResultManager.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ LottoResultManager)
+/* harmony export */ });
+/* harmony import */ var _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/constants.js */ "./src/js/utils/constants.js");
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
+
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+
+function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
+
+function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
+
+function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
+
+function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
+
+function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
+
+/* eslint-disable max-lines-per-function */
+
+
+var _lottoMatchingResult = /*#__PURE__*/new WeakMap();
+
+var LottoResultManager = /*#__PURE__*/function () {
+  function LottoResultManager() {
+    var _classPrivateFieldSet2;
+
+    _classCallCheck(this, LottoResultManager);
+
+    _classPrivateFieldInitSpec(this, _lottoMatchingResult, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldSet(this, _lottoMatchingResult, (_classPrivateFieldSet2 = {}, _defineProperty(_classPrivateFieldSet2, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.THREE, 0), _defineProperty(_classPrivateFieldSet2, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FOUR, 0), _defineProperty(_classPrivateFieldSet2, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE, 0), _defineProperty(_classPrivateFieldSet2, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS, 0), _defineProperty(_classPrivateFieldSet2, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.SIX, 0), _defineProperty(_classPrivateFieldSet2, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.NOTHING, 0), _classPrivateFieldSet2));
+  }
+
+  _createClass(LottoResultManager, [{
+    key: "lottoMatchingResult",
+    get: function get() {
+      return _classPrivateFieldGet(this, _lottoMatchingResult);
+    }
+  }, {
+    key: "createLottoMatchingResult",
+    value: function createLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, lottoList) {
+      _classPrivateFieldSet(this, _lottoMatchingResult, this.calcLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, lottoList));
+    } // 15줄 넘기지 않도록 하기
+
+  }, {
+    key: "calcLottoMatchingResult",
+    value: function calcLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, lottoList) {
+      var _this = this;
+
+      console.log(lottoList);
+      lottoList.forEach(function (lotto) {
+        var matchedNumCount = lotto.filter(function (num) {
+          return lottoWinningNumbers.includes(num);
+        }).length;
+        var keyByMatchedNumCount = LottoResultManager.getKeyByMatchedNumCount(matchedNumCount, lotto, lottoWinningBonusNumber);
+        _classPrivateFieldGet(_this, _lottoMatchingResult)[keyByMatchedNumCount] += 1;
+      });
+      return _classPrivateFieldGet(this, _lottoMatchingResult);
+    }
+  }], [{
+    key: "getKeyByMatchedNumCount",
+    value: function getKeyByMatchedNumCount(matchedNumCount, lotto, lottoWinningBonusNumber) {
+      var key;
+
+      switch (matchedNumCount) {
+        case 3:
+          key = _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.THREE;
+          break;
+
+        case 4:
+          key = _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FOUR;
+          break;
+
+        case 5:
+          key = lotto.includes(lottoWinningBonusNumber) ? _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS : _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE;
+          break;
+
+        case 6:
+          key = _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.SIX;
+          break;
+
+        default:
+          key = _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.NOTHING;
+      }
+
+      return key;
+    }
+  }]);
+
+  return LottoResultManager;
 }();
 
 
@@ -277,7 +411,8 @@ var LOTTO = Object.freeze({
   NUMBER_LENGTH: 6
 });
 var ERROR_MESSAGE = Object.freeze({
-  IS_NOT_VALID_PURCHASE_MONEY: '1000원 단위로 금액을 입력해주세요!'
+  IS_NOT_VALID_PURCHASE_MONEY: '1000원 단위로 금액을 입력해주세요!',
+  IS_NOT_VALID_LOTTO_WINNING_NUMBERS: '1~45사이의 숫자를 중복없이 입력해주세요!'
 });
 var LOTTO_MATCHING_RESULT_KEY = Object.freeze({
   THREE: '3개',
@@ -378,11 +513,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "isDividedByThousand": () => (/* binding */ isDividedByThousand),
 /* harmony export */   "isEmptyValue": () => (/* binding */ isEmptyValue),
 /* harmony export */   "isPositiveValue": () => (/* binding */ isPositiveValue),
-/* harmony export */   "isValidPurchaseMoney": () => (/* binding */ isValidPurchaseMoney),
 /* harmony export */   "isNotDuplicateNumberExistInArray": () => (/* binding */ isNotDuplicateNumberExistInArray),
-/* harmony export */   "isAllNumberInRange": () => (/* binding */ isAllNumberInRange),
 /* harmony export */   "isNumberInRange": () => (/* binding */ isNumberInRange),
-/* harmony export */   "isNotIncludeSameNumber": () => (/* binding */ isNotIncludeSameNumber)
+/* harmony export */   "isAllNumberInRange": () => (/* binding */ isAllNumberInRange),
+/* harmony export */   "isNotIncludeSameNumber": () => (/* binding */ isNotIncludeSameNumber),
+/* harmony export */   "isValidPurchaseMoney": () => (/* binding */ isValidPurchaseMoney),
+/* harmony export */   "isValidLottoWinningNumbers": () => (/* binding */ isValidLottoWinningNumbers),
+/* harmony export */   "isValidLottoWinningBonusNumber": () => (/* binding */ isValidLottoWinningBonusNumber)
 /* harmony export */ });
 var isDividedByThousand = function isDividedByThousand(value) {
   return value % 1000 === 0;
@@ -393,22 +530,28 @@ var isEmptyValue = function isEmptyValue(value) {
 var isPositiveValue = function isPositiveValue(value) {
   return value > 0;
 };
-var isValidPurchaseMoney = function isValidPurchaseMoney(purchaseMoney) {
-  return isDividedByThousand(purchaseMoney) && !isEmptyValue(purchaseMoney) && isPositiveValue(purchaseMoney);
-};
 var isNotDuplicateNumberExistInArray = function isNotDuplicateNumberExistInArray(valueArray) {
   return new Set(valueArray).size === valueArray.length;
-};
-var isAllNumberInRange = function isAllNumberInRange(valueArray, min, max) {
-  return valueArray.every(function (value) {
-    return min <= value && value <= max;
-  });
 };
 var isNumberInRange = function isNumberInRange(value, min, max) {
   return min <= value && value <= max;
 };
+var isAllNumberInRange = function isAllNumberInRange(valueArray, min, max) {
+  return valueArray.every(function (value) {
+    return isNumberInRange(value, min, max);
+  });
+};
 var isNotIncludeSameNumber = function isNotIncludeSameNumber(valueArray, target) {
   return !valueArray.includes(target);
+};
+var isValidPurchaseMoney = function isValidPurchaseMoney(purchaseMoney) {
+  return isDividedByThousand(purchaseMoney) && !isEmptyValue(purchaseMoney) && isPositiveValue(purchaseMoney);
+};
+var isValidLottoWinningNumbers = function isValidLottoWinningNumbers(lottoWinningNumbers, min, max) {
+  return isNotDuplicateNumberExistInArray(lottoWinningNumbers) && isAllNumberInRange(lottoWinningNumbers, min, max);
+};
+var isValidLottoWinningBonusNumber = function isValidLottoWinningBonusNumber(lottoWinningNumbers, lottoWinningBonusNumber, min, max) {
+  return isNumberInRange(lottoWinningBonusNumber, min, max) && isNotIncludeSameNumber(lottoWinningNumbers, lottoWinningBonusNumber);
 };
 
 /***/ }),
@@ -704,8 +847,6 @@ var _lottoPurchaseResult = /*#__PURE__*/new WeakMap();
 
 var _lottoWinningNumberContainers = /*#__PURE__*/new WeakMap();
 
-var _lottoWinningBonusNumber = /*#__PURE__*/new WeakMap();
-
 var _lottoMatchResultForm = /*#__PURE__*/new WeakMap();
 
 var _handleMatchResult = /*#__PURE__*/new WeakSet();
@@ -726,11 +867,6 @@ var LottoWinningNumberInputView = /*#__PURE__*/function () {
       value: void 0
     });
 
-    _classPrivateFieldInitSpec(this, _lottoWinningBonusNumber, {
-      writable: true,
-      value: void 0
-    });
-
     _classPrivateFieldInitSpec(this, _lottoMatchResultForm, {
       writable: true,
       value: void 0
@@ -745,8 +881,6 @@ var LottoWinningNumberInputView = /*#__PURE__*/function () {
       _classPrivateFieldSet(this, _lottoMatchResultForm, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-match-result-form'));
 
       _classPrivateFieldSet(this, _lottoWinningNumberContainers, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$$)('.lotto-winning-number-container'));
-
-      _classPrivateFieldSet(this, _lottoWinningBonusNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-winning-bonus-number'));
     }
   }, {
     key: "lottoMatchResultForm",
@@ -760,26 +894,31 @@ var LottoWinningNumberInputView = /*#__PURE__*/function () {
     }
   }, {
     key: "render",
-    value: // #handleBlockNotNumberInput(event) {
-    //   const conditions = ['Key', 'Space'];
-    //   if (conditions.some((ele) => event.code.includes(ele))) {
-    //     event.preventDefault();
-    //   }
-    // }
-    function render() {
+    value: function render() {
       _classPrivateFieldGet(this, _lottoPurchaseResult).insertAdjacentHTML('afterend', (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoWinningNumberInputTemplate)());
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      _classPrivateFieldGet(this, _lottoMatchResultForm).reset();
     }
   }]);
 
   return LottoWinningNumberInputView;
-}();
+}(); // #handleBlockNotNumberInput(event) {
+//   const conditions = ['Key', 'Space'];
+//   if (conditions.some((ele) => event.code.includes(ele))) {
+//     event.preventDefault();
+//   }
+// }
+
 
 function _handleMatchResult2(event) {
   event.preventDefault();
   var lottoWinningNumbers = Array.from(_classPrivateFieldGet(this, _lottoWinningNumberContainers)).map(function (element) {
     return Number(element.value);
   });
-  var lottoWinningBonusNumber = Number(_classPrivateFieldGet(this, _lottoWinningBonusNumber).value);
+  var lottoWinningBonusNumber = Number(lottoWinningNumbers.pop());
   (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(_classPrivateFieldGet(this, _lottoMatchResultForm), '@matchResult', {
     lottoWinningNumbers: lottoWinningNumbers,
     lottoWinningBonusNumber: lottoWinningBonusNumber
@@ -1438,25 +1577,30 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lottoController_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lottoController.js */ "./src/js/lottoController.js");
 /* harmony import */ var _model_lottoCreator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./model/lottoCreator.js */ "./src/js/model/lottoCreator.js");
-/* harmony import */ var _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./views/lottoPurchaseInputView.js */ "./src/js/views/lottoPurchaseInputView.js");
-/* harmony import */ var _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/lottoPurchaseResultView.js */ "./src/js/views/lottoPurchaseResultView.js");
-/* harmony import */ var _views_lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/lottoWinningNumberInputView.js */ "./src/js/views/lottoWinningNumberInputView.js");
-/* harmony import */ var _css_index_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../css/index.css */ "./src/css/index.css");
+/* harmony import */ var _model_lottoResultManager_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./model/lottoResultManager.js */ "./src/js/model/lottoResultManager.js");
+/* harmony import */ var _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/lottoPurchaseInputView.js */ "./src/js/views/lottoPurchaseInputView.js");
+/* harmony import */ var _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/lottoPurchaseResultView.js */ "./src/js/views/lottoPurchaseResultView.js");
+/* harmony import */ var _views_lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/lottoWinningNumberInputView.js */ "./src/js/views/lottoWinningNumberInputView.js");
+/* harmony import */ var _css_index_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../css/index.css */ "./src/css/index.css");
 
 
 
 
 
 
+ // eslint-disable-next-line max-lines-per-function
 
 var startLotto = function startLotto() {
-  var lottoModel = new _model_lottoCreator_js__WEBPACK_IMPORTED_MODULE_1__["default"]();
-  var views = {
-    lottoPurchaseInputView: new _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_2__["default"](),
-    lottoPurchaseResultView: new _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_3__["default"](),
-    lottoWinningNumberInputView: new _views_lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_4__["default"]()
+  var models = {
+    lottoCreator: new _model_lottoCreator_js__WEBPACK_IMPORTED_MODULE_1__["default"](),
+    lottoResultManager: new _model_lottoResultManager_js__WEBPACK_IMPORTED_MODULE_2__["default"]()
   };
-  var lottoController = new _lottoController_js__WEBPACK_IMPORTED_MODULE_0__["default"](lottoModel, views);
+  var views = {
+    lottoPurchaseInputView: new _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_3__["default"](),
+    lottoPurchaseResultView: new _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_4__["default"](),
+    lottoWinningNumberInputView: new _views_lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_5__["default"]()
+  };
+  var lottoController = new _lottoController_js__WEBPACK_IMPORTED_MODULE_0__["default"](models, views);
   lottoController.init();
 };
 
