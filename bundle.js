@@ -349,19 +349,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "isDividedByThousand": () => (/* binding */ isDividedByThousand),
 /* harmony export */   "isEmptyValue": () => (/* binding */ isEmptyValue),
 /* harmony export */   "isPositiveValue": () => (/* binding */ isPositiveValue),
-/* harmony export */   "isValidPurchaseMoney": () => (/* binding */ isValidPurchaseMoney)
+/* harmony export */   "isValidPurchaseMoney": () => (/* binding */ isValidPurchaseMoney),
+/* harmony export */   "isNotDuplicateNumberExistInArray": () => (/* binding */ isNotDuplicateNumberExistInArray),
+/* harmony export */   "isAllNumberInRange": () => (/* binding */ isAllNumberInRange),
+/* harmony export */   "isNumberInRange": () => (/* binding */ isNumberInRange),
+/* harmony export */   "isNotIncludeSameNumber": () => (/* binding */ isNotIncludeSameNumber)
 /* harmony export */ });
-var isDividedByThousand = function isDividedByThousand(purchaseMoney) {
-  return purchaseMoney % 1000 === 0;
+var isDividedByThousand = function isDividedByThousand(value) {
+  return value % 1000 === 0;
 };
-var isEmptyValue = function isEmptyValue(purchaseMoney) {
-  return !purchaseMoney;
+var isEmptyValue = function isEmptyValue(value) {
+  return !value;
 };
-var isPositiveValue = function isPositiveValue(purchaseMoney) {
-  return purchaseMoney > 0;
+var isPositiveValue = function isPositiveValue(value) {
+  return value > 0;
 };
 var isValidPurchaseMoney = function isValidPurchaseMoney(purchaseMoney) {
   return isDividedByThousand(purchaseMoney) && !isEmptyValue(purchaseMoney) && isPositiveValue(purchaseMoney);
+};
+var isNotDuplicateNumberExistInArray = function isNotDuplicateNumberExistInArray(valueArray) {
+  return new Set(valueArray).size === valueArray.length;
+};
+var isAllNumberInRange = function isAllNumberInRange(valueArray, min, max) {
+  return valueArray.every(function (value) {
+    return min <= value && value <= max;
+  });
+};
+var isNumberInRange = function isNumberInRange(value, min, max) {
+  return min <= value && value <= max;
+};
+var isNotIncludeSameNumber = function isNotIncludeSameNumber(valueArray, target) {
+  return !valueArray.includes(target);
 };
 
 /***/ }),
