@@ -183,7 +183,9 @@ function _submitMatchResult2(event) {
   if ((0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidLottoWinningNumbers)(lottoWinningNumbers, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT) && (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidLottoWinningBonusNumber)(lottoWinningNumbers, lottoWinningBonusNumber, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT)) {
     var lottoMatchResult = _classPrivateFieldGet(this, _lottoResultManager).calcLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, _classPrivateFieldGet(this, _lottoCreator).lottoList);
 
-    _classPrivateFieldGet(this, _lottoResultView).render(lottoMatchResult);
+    var profit = _classPrivateFieldGet(this, _lottoResultManager).calcProfit(_classPrivateFieldGet(this, _lottoCreator).purchaseMoney, lottoMatchResult);
+
+    _classPrivateFieldGet(this, _lottoResultView).render(lottoMatchResult, profit);
 
     return;
   }
@@ -535,7 +537,7 @@ var lottoWinningNumberInputTemplate = function lottoWinningNumberInputTemplate()
   return "\n    <section>\n      <form id=\"lotto-match-result-form\">\n        <p>\uC9C0\uB09C \uC8FC \uB2F9\uCCA8\uBC88\uD638 6\uAC1C\uC640 \uBCF4\uB108\uC2A4 \uBC88\uD638 1\uAC1C\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694</p>\n        <div>\n          <label for=\"lotto-winning-number\">\uB2F9\uCCA8 \uBC88\uD638</label>\n          <input id=\"lotto-winning-number\" class=\"lotto-winning-number-container\" maxlength=\"2\" />\n          ".concat('<input class="lotto-winning-number-container" maxlength="2" />'.repeat(5), "\n        </div>\n        <div>\n          <label for=\"lotto-winning-bonus-number\">\uBCF4\uB108\uC2A4 \uBC88\uD638</label>\n          <input id=\"lotto-winning-bonus-number\" class=\"lotto-winning-number-container\" maxlength=\"2\" />\n        </div>\n        <button id=\"lotto-match-result-button\" type=\"submit\">\uACB0\uACFC \uD655\uC778\uD558\uAE30</button>\n      </form>\n    </section>\n  ");
 };
 var lottoResultModalTemplate = function lottoResultModalTemplate() {
-  return "\n    <dialog id=\"lotto-result-dialog\">\n      <form method=\"dialog\">\n        <p>\uD83C\uDFC6\uB2F9\uCCA8 \uD1B5\uACC4\uD83C\uDFC6</p>\n        <table>\n          <thead>\n            <tr>\n              <th>\uC77C\uCE58 \uAC2F\uC218</th>\n              <th>\uB2F9\uCCA8\uAE08</th>\n              <th>\uB2F9\uCCA8 \uAC2F\uC218</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td>3\uAC1C</td>\n              <td>5,000</td>\n              <td><span id=\"three-matched-number\"></span>\uAC1C</td>\n            </tr>\n            <tr>\n              <td>4\uAC1C</td>\n              <td>50,000</td>\n              <td><span id=\"four-matched-number\"></span>\uAC1C</td>\n            </tr>\n            <tr>\n              <td>5\uAC1C</td>\n              <td>1,500,000</td>\n              <td><span id=\"five-matched-number\"></span>\uAC1C</td>\n            </tr>\n            <tr>\n              <td>5\uAC1C+\uBCF4\uB108\uC2A4\uBCFC</td>\n              <td>30,000,000</td>\n              <td><span id=\"five-with-bonus-matched-number\"></span>\uAC1C</td>\n            </tr>\n            <tr>\n              <td>6\uAC1C</td>\n              <td>2,000,000,000</td>\n              <td><span id=\"six-matched-number\"></span>\uAC1C</td>\n            </tr>\n          </tbody>\n        </table>\n        <p>\uB2F9\uC2E0\uC758 \uCD1D \uC218\uC775\uB960\uC744 <span id=\"profit-rate\"></spane>%\uC785\uB2C8\uB2E4</p>\n        <button id=\"restart-button\">\uB2E4\uC2DC \uC2DC\uC791\uD558\uAE30</button>\n      </form>\n    </dialog>\n  ";
+  return "\n    <dialog id=\"lotto-result-dialog\">\n      <form method=\"dialog\">\n        <p>\uD83C\uDFC6\uB2F9\uCCA8 \uD1B5\uACC4\uD83C\uDFC6</p>\n        <table>\n          <thead>\n            <tr>\n              <th>\uC77C\uCE58 \uAC2F\uC218</th>\n              <th>\uB2F9\uCCA8\uAE08</th>\n              <th>\uB2F9\uCCA8 \uAC2F\uC218</th>\n            </tr>\n          </thead>\n          <tbody>\n            <tr>\n              <td>3\uAC1C</td>\n              <td>5,000</td>\n              <td><span id=\"three-matched-number\"></span>\uAC1C</td>\n            </tr>\n            <tr>\n              <td>4\uAC1C</td>\n              <td>50,000</td>\n              <td><span id=\"four-matched-number\"></span>\uAC1C</td>\n            </tr>\n            <tr>\n              <td>5\uAC1C</td>\n              <td>1,500,000</td>\n              <td><span id=\"five-matched-number\"></span>\uAC1C</td>\n            </tr>\n            <tr>\n              <td>5\uAC1C+\uBCF4\uB108\uC2A4\uBCFC</td>\n              <td>30,000,000</td>\n              <td><span id=\"five-with-bonus-matched-number\"></span>\uAC1C</td>\n            </tr>\n            <tr>\n              <td>6\uAC1C</td>\n              <td>2,000,000,000</td>\n              <td><span id=\"six-matched-number\"></span>\uAC1C</td>\n            </tr>\n          </tbody>\n        </table>\n        <p>\uB2F9\uC2E0\uC758 \uCD1D \uC218\uC775\uB960\uC740 <span id=\"profit-rate\"></span>%\uC785\uB2C8\uB2E4</p>\n        <button id=\"restart-button\">\uB2E4\uC2DC \uC2DC\uC791\uD558\uAE30</button>\n      </form>\n    </dialog>\n  ";
 };
 
 /***/ }),
@@ -893,6 +895,8 @@ var _fiveWithBonusMatchedNumber = /*#__PURE__*/new WeakMap();
 
 var _sixMatchedNumber = /*#__PURE__*/new WeakMap();
 
+var _profitRate = /*#__PURE__*/new WeakMap();
+
 var LottoResultView = /*#__PURE__*/function () {
   function LottoResultView() {
     _classCallCheck(this, LottoResultView);
@@ -932,6 +936,11 @@ var LottoResultView = /*#__PURE__*/function () {
       value: void 0
     });
 
+    _classPrivateFieldInitSpec(this, _profitRate, {
+      writable: true,
+      value: void 0
+    });
+
     _classPrivateFieldSet(this, _app, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#app'));
 
     _classPrivateFieldGet(this, _app).insertAdjacentHTML('beforeend', (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoResultModalTemplate)());
@@ -947,11 +956,13 @@ var LottoResultView = /*#__PURE__*/function () {
     _classPrivateFieldSet(this, _fiveWithBonusMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#five-with-bonus-matched-number'));
 
     _classPrivateFieldSet(this, _sixMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#six-matched-number'));
+
+    _classPrivateFieldSet(this, _profitRate, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#profit-rate'));
   }
 
   _createClass(LottoResultView, [{
     key: "render",
-    value: function render(lottoMatchingResult) {
+    value: function render(lottoMatchingResult, profit) {
       _classPrivateFieldGet(this, _lottoResultDialog).showModal();
 
       _classPrivateFieldGet(this, _threeMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO_MATCHING_RESULT_KEY.THREE];
@@ -959,6 +970,7 @@ var LottoResultView = /*#__PURE__*/function () {
       _classPrivateFieldGet(this, _fiveMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO_MATCHING_RESULT_KEY.FIVE];
       _classPrivateFieldGet(this, _fiveWithBonusMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS];
       _classPrivateFieldGet(this, _sixMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO_MATCHING_RESULT_KEY.SIX];
+      _classPrivateFieldGet(this, _profitRate).textContent = profit;
     }
   }]);
 
