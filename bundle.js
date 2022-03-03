@@ -155,7 +155,7 @@ function _submitPurchaseLotto2(event) {
   if ((0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidPurchaseMoney)(purchaseMoney)) {
     _classPrivateFieldGet(this, _lottoCreator).purchaseMoney = purchaseMoney;
 
-    _classPrivateFieldGet(this, _lottoPurchaseInputView).disablePurchaseLottoForm(); // 로또 자동 번호 생성 및 렌더링
+    _classPrivateFieldGet(this, _lottoPurchaseInputView).disableForm(); // 로또 자동 번호 생성 및 렌더링
 
 
     _classPrivateFieldGet(this, _lottoCreator).createLottoList();
@@ -165,10 +165,6 @@ function _submitPurchaseLotto2(event) {
 
     _classPrivateFieldGet(this, _lottoWinningNumberInputView).render();
 
-    _classPrivateFieldGet(this, _lottoWinningNumberInputView).selectDOM();
-
-    _classPrivateFieldGet(this, _lottoWinningNumberInputView).attachEvents();
-
     _classPrivateMethodGet(this, _submitLottoWinningNumberInputView, _submitLottoWinningNumberInputView2).call(this);
 
     return;
@@ -176,7 +172,7 @@ function _submitPurchaseLotto2(event) {
 
   alert(_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_MESSAGE.IS_NOT_VALID_PURCHASE_MONEY);
 
-  _classPrivateFieldGet(this, _lottoPurchaseInputView).resetPurchaseMoney();
+  _classPrivateFieldGet(this, _lottoPurchaseInputView).reset();
 }
 
 function _submitMatchResult2(event) {
@@ -676,13 +672,13 @@ var LottoPurchaseInputView = /*#__PURE__*/function () {
       return _classPrivateFieldGet(this, _lottoPurchaseForm);
     }
   }, {
-    key: "resetPurchaseMoney",
-    value: function resetPurchaseMoney() {
+    key: "reset",
+    value: function reset() {
       _classPrivateFieldGet(this, _lottoPurchaseForm).reset();
     }
   }, {
-    key: "disablePurchaseLottoForm",
-    value: function disablePurchaseLottoForm() {
+    key: "disableForm",
+    value: function disableForm() {
       _classPrivateFieldGet(this, _lottoPurchaseInput).disabled = true;
       _classPrivateFieldGet(this, _lottoPurchaseButton).disabled = true;
     }
@@ -1013,9 +1009,17 @@ var _lottoMatchResultForm = /*#__PURE__*/new WeakMap();
 
 var _handleMatchResult = /*#__PURE__*/new WeakSet();
 
+var _selectDOM = /*#__PURE__*/new WeakSet();
+
+var _attachEvents = /*#__PURE__*/new WeakSet();
+
 var LottoWinningNumberInputView = /*#__PURE__*/function () {
   function LottoWinningNumberInputView() {
     _classCallCheck(this, LottoWinningNumberInputView);
+
+    _classPrivateMethodInitSpec(this, _attachEvents);
+
+    _classPrivateMethodInitSpec(this, _selectDOM);
 
     _classPrivateMethodInitSpec(this, _handleMatchResult);
 
@@ -1038,26 +1042,18 @@ var LottoWinningNumberInputView = /*#__PURE__*/function () {
   }
 
   _createClass(LottoWinningNumberInputView, [{
-    key: "selectDOM",
-    value: function selectDOM() {
-      _classPrivateFieldSet(this, _lottoMatchResultForm, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-match-result-form'));
-
-      _classPrivateFieldSet(this, _lottoWinningNumberContainers, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$$)('.lotto-winning-number-container'));
-    }
-  }, {
     key: "lottoMatchResultForm",
     get: function get() {
       return _classPrivateFieldGet(this, _lottoMatchResultForm);
     }
   }, {
-    key: "attachEvents",
-    value: function attachEvents() {
-      (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoMatchResultForm), 'submit', _classPrivateMethodGet(this, _handleMatchResult, _handleMatchResult2).bind(this));
-    }
-  }, {
     key: "render",
     value: function render() {
       _classPrivateFieldGet(this, _lottoPurchaseResult).insertAdjacentHTML('afterend', (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoWinningNumberInputTemplate)());
+
+      _classPrivateMethodGet(this, _selectDOM, _selectDOM2).call(this);
+
+      _classPrivateMethodGet(this, _attachEvents, _attachEvents2).call(this);
     }
   }, {
     key: "reset",
@@ -1085,6 +1081,16 @@ function _handleMatchResult2(event) {
     lottoWinningNumbers: lottoWinningNumbers,
     lottoWinningBonusNumber: lottoWinningBonusNumber
   });
+}
+
+function _selectDOM2() {
+  _classPrivateFieldSet(this, _lottoMatchResultForm, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-match-result-form'));
+
+  _classPrivateFieldSet(this, _lottoWinningNumberContainers, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$$)('.lotto-winning-number-container'));
+}
+
+function _attachEvents2() {
+  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoMatchResultForm), 'submit', _classPrivateMethodGet(this, _handleMatchResult, _handleMatchResult2).bind(this));
 }
 
 
