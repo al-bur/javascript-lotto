@@ -153,12 +153,14 @@ function _submitPurchaseLotto2(event) {
   var purchaseMoney = event.detail;
 
   if ((0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidPurchaseMoney)(purchaseMoney)) {
+    _classPrivateFieldGet(this, _lottoCreator).purchaseMoney = purchaseMoney;
+
     _classPrivateFieldGet(this, _lottoPurchaseInputView).disablePurchaseLottoForm(); // 로또 자동 번호 생성 및 렌더링
 
 
-    _classPrivateFieldGet(this, _lottoCreator).createLottoList(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
+    _classPrivateFieldGet(this, _lottoCreator).createLottoList();
 
-    _classPrivateFieldGet(this, _lottoPurchaseResultView).render(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT, _classPrivateFieldGet(this, _lottoCreator).lottoList); // 당첨 번호 입력 렌더링
+    _classPrivateFieldGet(this, _lottoPurchaseResultView).render(_classPrivateFieldGet(this, _lottoCreator).purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT, _classPrivateFieldGet(this, _lottoCreator).lottoList); // 당첨 번호 입력 렌더링
 
 
     _classPrivateFieldGet(this, _lottoWinningNumberInputView).render();
@@ -183,10 +185,9 @@ function _submitMatchResult2(event) {
       lottoWinningBonusNumber = _event$detail.lottoWinningBonusNumber;
 
   if ((0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidLottoWinningNumbers)(lottoWinningNumbers, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT) && (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isValidLottoWinningBonusNumber)(lottoWinningNumbers, lottoWinningBonusNumber, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT)) {
-    _classPrivateFieldGet(this, _lottoResultManager).createLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, _classPrivateFieldGet(this, _lottoCreator).lottoList); // console.log(this.#lottoResultManager.lottoMatchingResult);
+    _classPrivateFieldGet(this, _lottoResultManager).createLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, _classPrivateFieldGet(this, _lottoCreator).lottoList);
 
-
-    _classPrivateFieldGet(this, _lottoResultView).render();
+    _classPrivateFieldGet(this, _lottoResultView).render(_classPrivateFieldGet(this, _lottoResultManager).lottoMatchingResult);
 
     return;
   }
@@ -235,6 +236,8 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 var _lottoList = /*#__PURE__*/new WeakMap();
 
+var _purchaseMoney = /*#__PURE__*/new WeakMap();
+
 var LottoCreator = /*#__PURE__*/function () {
   function LottoCreator() {
     _classCallCheck(this, LottoCreator);
@@ -244,9 +247,16 @@ var LottoCreator = /*#__PURE__*/function () {
       value: void 0
     });
 
+    _classPrivateFieldInitSpec(this, _purchaseMoney, {
+      writable: true,
+      value: void 0
+    });
+
     _classPrivateFieldSet(this, _lottoList, []);
 
     this.lottoMatchingResult = {};
+
+    _classPrivateFieldSet(this, _purchaseMoney, 0);
   }
 
   _createClass(LottoCreator, [{
@@ -255,8 +265,18 @@ var LottoCreator = /*#__PURE__*/function () {
       return _classPrivateFieldGet(this, _lottoList);
     }
   }, {
+    key: "purchaseMoney",
+    get: function get() {
+      return _classPrivateFieldGet(this, _purchaseMoney);
+    },
+    set: function set(value) {
+      _classPrivateFieldSet(this, _purchaseMoney, value);
+    }
+  }, {
     key: "createLottoList",
-    value: function createLottoList(lottoCount) {
+    value: function createLottoList() {
+      var lottoCount = _classPrivateFieldGet(this, _purchaseMoney) / _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO.COST_UNIT;
+
       _classPrivateFieldSet(this, _lottoList, Array.from({
         length: lottoCount
       }).map(function () {
