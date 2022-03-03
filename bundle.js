@@ -145,14 +145,12 @@ function _submitPurchaseLotto2(event) {
   _classPrivateFieldGet(this, _lottoPurchaseInputView).disablePurchaseLottoForm(); // 로또 자동 번호 생성 및 렌더링
 
 
-  _classPrivateFieldGet(this, _lottoPurchaseResultView).renderLottoPurchaseCount(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
-
   _classPrivateFieldGet(this, _lottoCreator).createLottoList(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT);
 
-  _classPrivateFieldGet(this, _lottoPurchaseResultView).renderLottoPurchaseResult(_classPrivateFieldGet(this, _lottoCreator).lottoList); // 당첨 번호 입력 렌더링
+  _classPrivateFieldGet(this, _lottoPurchaseResultView).render(purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT, _classPrivateFieldGet(this, _lottoCreator).lottoList); // 당첨 번호 입력 렌더링
 
 
-  _classPrivateFieldGet(this, _lottoWinningNumberInputView).renderlottoWinningNumberInput();
+  _classPrivateFieldGet(this, _lottoWinningNumberInputView).render();
 
   _classPrivateFieldGet(this, _lottoWinningNumberInputView).selectDOM();
 
@@ -625,15 +623,14 @@ var lottoPurchaseResultView = /*#__PURE__*/function () {
       return _classPrivateFieldGet(this, _showLottoToggle);
     }
   }, {
-    key: "renderLottoPurchaseCount",
-    value: function renderLottoPurchaseCount(count) {
+    key: "render",
+    value: function render(count, lottoList) {
       _classPrivateFieldGet(this, _lottoPurchaseCount).textContent = (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoPurchaseCountTemplate)(count);
-    }
-  }, {
-    key: "renderLottoPurchaseResult",
-    value: function renderLottoPurchaseResult(lottoList) {
+
       _classPrivateFieldGet(this, _lottoList).insertAdjacentHTML('afterbegin', (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoPurchaseResultTemplate)(lottoList));
-    }
+    } // renderLottoPurchaseCount(count) {}
+    // renderLottoPurchaseResult(lottoList) {}
+
   }, {
     key: "toggleLottoNumbers",
     value: function toggleLottoNumbers() {
@@ -762,14 +759,14 @@ var LottoWinningNumberInputView = /*#__PURE__*/function () {
       (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoMatchResultForm), 'submit', _classPrivateMethodGet(this, _handleMatchResult, _handleMatchResult2).bind(this));
     }
   }, {
-    key: "renderlottoWinningNumberInput",
+    key: "render",
     value: // #handleBlockNotNumberInput(event) {
     //   const conditions = ['Key', 'Space'];
     //   if (conditions.some((ele) => event.code.includes(ele))) {
     //     event.preventDefault();
     //   }
     // }
-    function renderlottoWinningNumberInput() {
+    function render() {
       _classPrivateFieldGet(this, _lottoPurchaseResult).insertAdjacentHTML('afterend', (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoWinningNumberInputTemplate)());
     }
   }]);
