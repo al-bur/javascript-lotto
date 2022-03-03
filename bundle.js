@@ -373,6 +373,41 @@ var LottoResultManager = /*#__PURE__*/function () {
 
       return key;
     }
+  }, {
+    key: "calcProfit",
+    value: function calcProfit(purchaseMoney, lottoMatchingResult) {
+      var _this = this;
+
+      var totalPrizeMoney = Object.keys(lottoMatchingResult).reduce(function (currentPrizeMoney, key) {
+        var prizeAmount = lottoMatchingResult[key];
+        var earnedPrizeMoney = _this.getPrizeUnitByKey(key) * prizeAmount;
+        return currentPrizeMoney + earnedPrizeMoney;
+      }, 0);
+      return Math.round((totalPrizeMoney - purchaseMoney) / purchaseMoney * 100);
+    }
+  }, {
+    key: "getPrizeUnitByKey",
+    value: function getPrizeUnitByKey(key) {
+      switch (key) {
+        case _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.THREE:
+          return _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.THREE;
+
+        case _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FOUR:
+          return _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.FOUR;
+
+        case _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE:
+          return _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.FIVE;
+
+        case _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS:
+          return _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.FIVE_PLUS_BONUS;
+
+        case _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.SIX:
+          return _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.SIX;
+
+        default:
+          return 1;
+      }
+    }
   }]);
 
   return LottoResultManager;
@@ -392,7 +427,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "LOTTO": () => (/* binding */ LOTTO),
 /* harmony export */   "ERROR_MESSAGE": () => (/* binding */ ERROR_MESSAGE),
-/* harmony export */   "LOTTO_MATCHING_RESULT_KEY": () => (/* binding */ LOTTO_MATCHING_RESULT_KEY)
+/* harmony export */   "LOTTO_MATCHING_RESULT_KEY": () => (/* binding */ LOTTO_MATCHING_RESULT_KEY),
+/* harmony export */   "LOTTO_PRIZE_MONEY_UNIT": () => (/* binding */ LOTTO_PRIZE_MONEY_UNIT)
 /* harmony export */ });
 var LOTTO = Object.freeze({
   COST_UNIT: 1000,
@@ -411,6 +447,14 @@ var LOTTO_MATCHING_RESULT_KEY = Object.freeze({
   FIVE_PLUS_BONUS: '5개+보너스볼',
   SIX: '6개',
   NOTHING: '낙첨'
+});
+var LOTTO_PRIZE_MONEY_UNIT = Object.freeze({
+  THREE: 5000,
+  FOUR: 50000,
+  FIVE: 1500000,
+  FIVE_PLUS_BONUS: 30000000,
+  SIX: 2000000000,
+  NOTHING: 0
 });
 
 /***/ }),
