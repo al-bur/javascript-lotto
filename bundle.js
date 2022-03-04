@@ -53,7 +53,7 @@ var _lottoPurchaseResultView = /*#__PURE__*/new WeakMap();
 
 var _lottoWinningNumberInputView = /*#__PURE__*/new WeakMap();
 
-var _lottoResultView = /*#__PURE__*/new WeakMap();
+var _lottoMatchResultView = /*#__PURE__*/new WeakMap();
 
 var _submitInitialView = /*#__PURE__*/new WeakSet();
 
@@ -108,7 +108,7 @@ var LottoController = /*#__PURE__*/function () {
       value: void 0
     });
 
-    _classPrivateFieldInitSpec(this, _lottoResultView, {
+    _classPrivateFieldInitSpec(this, _lottoMatchResultView, {
       writable: true,
       value: void 0
     });
@@ -123,7 +123,7 @@ var LottoController = /*#__PURE__*/function () {
 
     _classPrivateFieldSet(this, _lottoWinningNumberInputView, views.lottoWinningNumberInputView);
 
-    _classPrivateFieldSet(this, _lottoResultView, views.lottoResultView);
+    _classPrivateFieldSet(this, _lottoMatchResultView, views.lottoMatchResultView);
 
     _classPrivateMethodGet(this, _submitInitialView, _submitInitialView2).call(this);
   }
@@ -151,7 +151,7 @@ var LottoController = /*#__PURE__*/function () {
 function _submitInitialView2() {
   (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoPurchaseInputView).lottoPurchaseForm, '@purchaseMoney', _classPrivateMethodGet(this, _submitPurchaseLotto, _submitPurchaseLotto2).bind(this));
   (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoPurchaseResultView).showLottoToggle, '@lottoToggle', _classPrivateMethodGet(this, _submitLottoToggle, _submitLottoToggle2).bind(this));
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoResultView).restartButton, '@restart', _classPrivateMethodGet(this, _submitRestart, _submitRestart2).bind(this));
+  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoMatchResultView).restartButton, '@restart', _classPrivateMethodGet(this, _submitRestart, _submitRestart2).bind(this));
 }
 
 function _submitLottoToggle2() {
@@ -164,13 +164,11 @@ function _submitPurchaseLotto2(event) {
   if (LottoController.isValidPurchaseMoney(purchaseMoney)) {
     _classPrivateFieldGet(this, _lottoCreator).purchaseMoney = purchaseMoney;
 
-    _classPrivateFieldGet(this, _lottoPurchaseInputView).disableForm(); // 로또 자동 번호 생성 및 렌더링
-
+    _classPrivateFieldGet(this, _lottoPurchaseInputView).disableForm();
 
     _classPrivateFieldGet(this, _lottoCreator).createLottoList();
 
-    _classPrivateFieldGet(this, _lottoPurchaseResultView).render(_classPrivateFieldGet(this, _lottoCreator).purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT, _classPrivateFieldGet(this, _lottoCreator).lottoList); // 당첨 번호 입력 렌더링
-
+    _classPrivateFieldGet(this, _lottoPurchaseResultView).render(_classPrivateFieldGet(this, _lottoCreator).purchaseMoney / _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.COST_UNIT, _classPrivateFieldGet(this, _lottoCreator).lottoList);
 
     _classPrivateFieldGet(this, _lottoWinningNumberInputView).render();
 
@@ -208,7 +206,7 @@ function _submitMatchResult2(event) {
 
     var profit = _classPrivateFieldGet(this, _lottoResultManager).calcProfit(_classPrivateFieldGet(this, _lottoCreator).purchaseMoney, lottoMatchResult);
 
-    _classPrivateFieldGet(this, _lottoResultView).render(lottoMatchResult, profit);
+    _classPrivateFieldGet(this, _lottoMatchResultView).render(lottoMatchResult, profit);
 
     return;
   }
@@ -363,8 +361,7 @@ var LottoResultManager = /*#__PURE__*/function () {
 
   _createClass(LottoResultManager, null, [{
     key: "calcLottoMatchingResult",
-    value: // 15줄 넘기지 않도록 하기
-    function calcLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, lottoList) {
+    value: function calcLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, lottoList) {
       var _lottoMatchingResult;
 
       var lottoMatchingResult = (_lottoMatchingResult = {}, _defineProperty(_lottoMatchingResult, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.THREE, 0), _defineProperty(_lottoMatchingResult, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FOUR, 0), _defineProperty(_lottoMatchingResult, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE, 0), _defineProperty(_lottoMatchingResult, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS, 0), _defineProperty(_lottoMatchingResult, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.SIX, 0), _defineProperty(_lottoMatchingResult, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.NOTHING, 0), _lottoMatchingResult);
@@ -472,8 +469,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "$": () => (/* binding */ $),
 /* harmony export */   "$$": () => (/* binding */ $$),
-/* harmony export */   "on": () => (/* binding */ on),
-/* harmony export */   "emit": () => (/* binding */ emit)
+/* harmony export */   "emit": () => (/* binding */ emit),
+/* harmony export */   "on": () => (/* binding */ on)
 /* harmony export */ });
 var $ = function $(selector) {
   var node = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
@@ -483,14 +480,14 @@ var $$ = function $$(selector) {
   var node = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : document;
   return node.querySelectorAll(selector);
 };
-var on = function on(target, eventName, handler) {
-  return target.addEventListener(eventName, handler);
-};
 var emit = function emit(target, eventName, detail) {
   var event = new CustomEvent(eventName, {
     detail: detail
   });
   target.dispatchEvent(event);
+};
+var on = function on(target, eventName, handler) {
+  return target.addEventListener(eventName, handler);
 };
 
 /***/ }),
@@ -504,8 +501,8 @@ var emit = function emit(target, eventName, detail) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "lottoPurchaseCountTemplate": () => (/* binding */ lottoPurchaseCountTemplate),
-/* harmony export */   "lottoTemplate": () => (/* binding */ lottoTemplate),
 /* harmony export */   "lottoPurchaseResultTemplate": () => (/* binding */ lottoPurchaseResultTemplate),
+/* harmony export */   "lottoTemplate": () => (/* binding */ lottoTemplate),
 /* harmony export */   "lottoWinningNumberInputTemplate": () => (/* binding */ lottoWinningNumberInputTemplate)
 /* harmony export */ });
 /* harmony import */ var _images_lotto_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../images/lotto.png */ "./src/images/lotto.png");
@@ -525,13 +522,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 var lottoPurchaseCountTemplate = function lottoPurchaseCountTemplate(count) {
   return "\n    \uCD1D ".concat(count, "\uAC1C\uB97C \uAD6C\uB9E4\uD558\uC600\uC2B5\uB2C8\uB2E4.\n  ");
 };
-var lottoTemplate = function lottoTemplate(numbers) {
-  return "\n    <li class=\"flex\">\n      <img src=".concat(_images_lotto_png__WEBPACK_IMPORTED_MODULE_0__["default"], " />\n      <p class=\"lotto-numbers hidden\">").concat(numbers.join(', '), "</p>\n    </li>\n  ");
-};
 var lottoPurchaseResultTemplate = function lottoPurchaseResultTemplate(lottoList) {
   return "\n    ".concat(lottoList.map(function (lotto) {
     return lottoTemplate(_toConsumableArray(lotto));
   }).join(''), "\n  ");
+};
+var lottoTemplate = function lottoTemplate(numbers) {
+  return "\n    <li class=\"flex\">\n      <img src=".concat(_images_lotto_png__WEBPACK_IMPORTED_MODULE_0__["default"], " />\n      <p class=\"lotto-numbers hidden\">").concat(numbers.join(', '), "</p>\n    </li>\n  ");
 };
 var lottoWinningNumberInputTemplate = function lottoWinningNumberInputTemplate() {
   return "\n    <section id=\"lotto-winning-number-input-section\">\n      <form id=\"lotto-match-result-form\">\n        <p class=\"mt-28\">\uC9C0\uB09C \uC8FC \uB2F9\uCCA8\uBC88\uD638 6\uAC1C\uC640 \uBCF4\uB108\uC2A4 \uBC88\uD638 1\uAC1C\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694</p>\n        <div class=\"flex justify-content-space-between mt-8\">\n          <div>\n            <label for=\"lotto-winning-number\">\uB2F9\uCCA8 \uBC88\uD638</label>\n            <div class=\"mt-8 flex column-gap-8\">\n              <input id=\"lotto-winning-number\" class=\"lotto-winning-number-container\" maxlength=\"2\" />\n              ".concat('<input class="lotto-winning-number-container" maxlength="2" />'.repeat(5), "\n            </div>\n          </div>\n          <div>\n            <label for=\"lotto-winning-bonus-number\">\uBCF4\uB108\uC2A4 \uBC88\uD638</label>\n            <div class=\"flex justify-content-end mt-8\">\n              <input id=\"lotto-winning-bonus-number\" class=\"lotto-winning-number-container\" maxlength=\"2\" />\n            </div>\n          </div>\n        </div>\n        <button id=\"lotto-match-result-button\" class=\"base-button mt-28\" type=\"submit\">\uACB0\uACFC \uD655\uC778\uD558\uAE30</button>\n      </form>\n    </section>\n  ");
@@ -577,24 +574,187 @@ var isAllNumberInRange = function isAllNumberInRange(valueArray, min, max) {
 };
 var isNotIncludeSameNumber = function isNotIncludeSameNumber(valueArray, target) {
   return !valueArray.includes(target);
-}; // export const isValidPurchaseMoney = (purchaseMoney) => {
-//   return (
-//     isDividedByThousand(purchaseMoney) &&
-//     !isEmptyValue(purchaseMoney) &&
-//     isPositiveValue(purchaseMoney)
-//   );
-// };
-// export const isValidLottoWinningNumbers = (lottoWinningNumbers, min, max) =>
-//   isNotDuplicateNumberExistInArray(lottoWinningNumbers) &&
-//   isAllNumberInRange(lottoWinningNumbers, min, max);
-// export const isValidLottoWinningBonusNumber = (
-//   lottoWinningNumbers,
-//   lottoWinningBonusNumber,
-//   min,
-//   max
-// ) =>
-//   isNumberInRange(lottoWinningBonusNumber, min, max) &&
-//   isNotIncludeSameNumber(lottoWinningNumbers, lottoWinningBonusNumber);
+};
+
+/***/ }),
+
+/***/ "./src/js/views/lottoMatchResultView.js":
+/*!**********************************************!*\
+  !*** ./src/js/views/lottoMatchResultView.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ LottoMatchResultView)
+/* harmony export */ });
+/* harmony import */ var _utils_helper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/helper.js */ "./src/js/utils/helper.js");
+/* harmony import */ var _utils_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/constants.js */ "./src/js/utils/constants.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
+
+function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
+
+function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
+
+function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
+
+function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
+
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
+function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
+
+function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
+
+function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
+
+
+
+
+var _lottoResultDialog = /*#__PURE__*/new WeakMap();
+
+var _threeMatchedNumber = /*#__PURE__*/new WeakMap();
+
+var _fourMatchedNumber = /*#__PURE__*/new WeakMap();
+
+var _fiveMatchedNumber = /*#__PURE__*/new WeakMap();
+
+var _fiveWithBonusMatchedNumber = /*#__PURE__*/new WeakMap();
+
+var _sixMatchedNumber = /*#__PURE__*/new WeakMap();
+
+var _profitRate = /*#__PURE__*/new WeakMap();
+
+var _restartButton = /*#__PURE__*/new WeakMap();
+
+var _closeTag = /*#__PURE__*/new WeakMap();
+
+var _attachEvents = /*#__PURE__*/new WeakSet();
+
+var _handleRestart = /*#__PURE__*/new WeakSet();
+
+var _handleCloseDialog = /*#__PURE__*/new WeakSet();
+
+var LottoMatchResultView = /*#__PURE__*/function () {
+  function LottoMatchResultView() {
+    _classCallCheck(this, LottoMatchResultView);
+
+    _classPrivateMethodInitSpec(this, _handleCloseDialog);
+
+    _classPrivateMethodInitSpec(this, _handleRestart);
+
+    _classPrivateMethodInitSpec(this, _attachEvents);
+
+    _classPrivateFieldInitSpec(this, _lottoResultDialog, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _threeMatchedNumber, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _fourMatchedNumber, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _fiveMatchedNumber, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _fiveWithBonusMatchedNumber, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _sixMatchedNumber, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _profitRate, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _restartButton, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _closeTag, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldSet(this, _lottoResultDialog, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-result-dialog'));
+
+    _classPrivateFieldSet(this, _threeMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#three-matched-number'));
+
+    _classPrivateFieldSet(this, _fourMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#four-matched-number'));
+
+    _classPrivateFieldSet(this, _fiveMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#five-matched-number'));
+
+    _classPrivateFieldSet(this, _fiveWithBonusMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#five-with-bonus-matched-number'));
+
+    _classPrivateFieldSet(this, _sixMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#six-matched-number'));
+
+    _classPrivateFieldSet(this, _profitRate, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#profit-rate'));
+
+    _classPrivateFieldSet(this, _restartButton, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#restart-button'));
+
+    _classPrivateFieldSet(this, _closeTag, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#close-tag'));
+
+    _classPrivateMethodGet(this, _attachEvents, _attachEvents2).call(this);
+  }
+
+  _createClass(LottoMatchResultView, [{
+    key: "restartButton",
+    get: function get() {
+      return _classPrivateFieldGet(this, _restartButton);
+    }
+  }, {
+    key: "render",
+    value: function render(lottoMatchingResult, profit) {
+      _classPrivateFieldGet(this, _lottoResultDialog).showModal();
+
+      _classPrivateFieldGet(this, _threeMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.THREE];
+      _classPrivateFieldGet(this, _fourMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.FOUR];
+      _classPrivateFieldGet(this, _fiveMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.FIVE];
+      _classPrivateFieldGet(this, _fiveWithBonusMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS];
+      _classPrivateFieldGet(this, _sixMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.SIX];
+      _classPrivateFieldGet(this, _profitRate).textContent = profit;
+    }
+  }]);
+
+  return LottoMatchResultView;
+}();
+
+function _attachEvents2() {
+  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _restartButton), 'click', _classPrivateMethodGet(this, _handleRestart, _handleRestart2).bind(this));
+  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _closeTag), 'click', _classPrivateMethodGet(this, _handleCloseDialog, _handleCloseDialog2).bind(this));
+}
+
+function _handleRestart2() {
+  _classPrivateFieldGet(this, _lottoResultDialog).close();
+
+  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(_classPrivateFieldGet(this, _restartButton), '@restart');
+}
+
+function _handleCloseDialog2() {
+  _classPrivateFieldGet(this, _lottoResultDialog).close();
+}
+
+
 
 /***/ }),
 
@@ -711,9 +871,7 @@ function _attachEvents2() {
 
 function _handlePurchaseLotto2(event) {
   event.preventDefault();
-
-  var purchaseMoney = _classPrivateFieldGet(this, _lottoPurchaseInput).valueAsNumber;
-
+  var purchaseMoney = event.target.elements['lotto-purchase-input'].valueAsNumber;
   (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(_classPrivateFieldGet(this, _lottoPurchaseForm), '@purchaseMoney', purchaseMoney);
 }
 
@@ -865,166 +1023,6 @@ function _handleShowLottoToggle2() {
 
 /***/ }),
 
-/***/ "./src/js/views/lottoResultView.js":
-/*!*****************************************!*\
-  !*** ./src/js/views/lottoResultView.js ***!
-  \*****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ LottoResultView)
-/* harmony export */ });
-/* harmony import */ var _utils_helper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/helper.js */ "./src/js/utils/helper.js");
-/* harmony import */ var _utils_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/constants.js */ "./src/js/utils/constants.js");
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _classPrivateMethodInitSpec(obj, privateSet) { _checkPrivateRedeclaration(obj, privateSet); privateSet.add(obj); }
-
-function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedeclaration(obj, privateMap); privateMap.set(obj, value); }
-
-function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
-
-function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
-
-function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
-
-function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
-
-function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
-
-function _classExtractFieldDescriptor(receiver, privateMap, action) { if (!privateMap.has(receiver)) { throw new TypeError("attempted to " + action + " private field on non-instance"); } return privateMap.get(receiver); }
-
-function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.set) { descriptor.set.call(receiver, value); } else { if (!descriptor.writable) { throw new TypeError("attempted to set read only private field"); } descriptor.value = value; } }
-
-
-
-
-var _lottoResultDialog = /*#__PURE__*/new WeakMap();
-
-var _threeMatchedNumber = /*#__PURE__*/new WeakMap();
-
-var _fourMatchedNumber = /*#__PURE__*/new WeakMap();
-
-var _fiveMatchedNumber = /*#__PURE__*/new WeakMap();
-
-var _fiveWithBonusMatchedNumber = /*#__PURE__*/new WeakMap();
-
-var _sixMatchedNumber = /*#__PURE__*/new WeakMap();
-
-var _profitRate = /*#__PURE__*/new WeakMap();
-
-var _restartButton = /*#__PURE__*/new WeakMap();
-
-var _attachEvents = /*#__PURE__*/new WeakSet();
-
-var _handleRestart = /*#__PURE__*/new WeakSet();
-
-var LottoResultView = /*#__PURE__*/function () {
-  function LottoResultView() {
-    _classCallCheck(this, LottoResultView);
-
-    _classPrivateMethodInitSpec(this, _handleRestart);
-
-    _classPrivateMethodInitSpec(this, _attachEvents);
-
-    _classPrivateFieldInitSpec(this, _lottoResultDialog, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _threeMatchedNumber, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _fourMatchedNumber, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _fiveMatchedNumber, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _fiveWithBonusMatchedNumber, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _sixMatchedNumber, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _profitRate, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _restartButton, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldSet(this, _lottoResultDialog, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-result-dialog'));
-
-    _classPrivateFieldSet(this, _threeMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#three-matched-number'));
-
-    _classPrivateFieldSet(this, _fourMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#four-matched-number'));
-
-    _classPrivateFieldSet(this, _fiveMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#five-matched-number'));
-
-    _classPrivateFieldSet(this, _fiveWithBonusMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#five-with-bonus-matched-number'));
-
-    _classPrivateFieldSet(this, _sixMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#six-matched-number'));
-
-    _classPrivateFieldSet(this, _profitRate, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#profit-rate'));
-
-    _classPrivateFieldSet(this, _restartButton, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#restart-button'));
-
-    _classPrivateMethodGet(this, _attachEvents, _attachEvents2).call(this);
-  }
-
-  _createClass(LottoResultView, [{
-    key: "restartButton",
-    get: function get() {
-      return _classPrivateFieldGet(this, _restartButton);
-    }
-  }, {
-    key: "render",
-    value: function render(lottoMatchingResult, profit) {
-      _classPrivateFieldGet(this, _lottoResultDialog).showModal();
-
-      _classPrivateFieldGet(this, _threeMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.THREE];
-      _classPrivateFieldGet(this, _fourMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.FOUR];
-      _classPrivateFieldGet(this, _fiveMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.FIVE];
-      _classPrivateFieldGet(this, _fiveWithBonusMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS];
-      _classPrivateFieldGet(this, _sixMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.SIX];
-      _classPrivateFieldGet(this, _profitRate).textContent = profit;
-    }
-  }]);
-
-  return LottoResultView;
-}();
-
-function _attachEvents2() {
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _restartButton), 'click', _classPrivateMethodGet(this, _handleRestart, _handleRestart2).bind(this));
-}
-
-function _handleRestart2() {
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(_classPrivateFieldGet(this, _restartButton), '@restart');
-}
-
-
-
-/***/ }),
-
 /***/ "./src/js/views/lottoWinningNumberInputView.js":
 /*!*****************************************************!*\
   !*** ./src/js/views/lottoWinningNumberInputView.js ***!
@@ -1064,7 +1062,7 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 
 
-var _lottoPurchaseResult = /*#__PURE__*/new WeakMap();
+var _lottoPurchaseResultSection = /*#__PURE__*/new WeakMap();
 
 var _lottoWinningNumberContainers = /*#__PURE__*/new WeakMap();
 
@@ -1088,7 +1086,7 @@ var LottoWinningNumberInputView = /*#__PURE__*/function () {
 
     _classPrivateMethodInitSpec(this, _handleMatchResult);
 
-    _classPrivateFieldInitSpec(this, _lottoPurchaseResult, {
+    _classPrivateFieldInitSpec(this, _lottoPurchaseResultSection, {
       writable: true,
       value: void 0
     });
@@ -1108,7 +1106,7 @@ var LottoWinningNumberInputView = /*#__PURE__*/function () {
       value: void 0
     });
 
-    _classPrivateFieldSet(this, _lottoPurchaseResult, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-result'));
+    _classPrivateFieldSet(this, _lottoPurchaseResultSection, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-result-section'));
   }
 
   _createClass(LottoWinningNumberInputView, [{
@@ -1119,7 +1117,7 @@ var LottoWinningNumberInputView = /*#__PURE__*/function () {
   }, {
     key: "render",
     value: function render() {
-      _classPrivateFieldGet(this, _lottoPurchaseResult).insertAdjacentHTML('afterend', (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoWinningNumberInputTemplate)());
+      _classPrivateFieldGet(this, _lottoPurchaseResultSection).insertAdjacentHTML('afterend', (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoWinningNumberInputTemplate)());
 
       _classPrivateMethodGet(this, _selectDOM, _selectDOM2).call(this);
 
@@ -1190,7 +1188,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_reset_css__WEBPACK_IMPORTED_MODULE_2__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "body {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 40px 0;\n}\n\n.flex {\n  display: flex;\n}\n\n.flex-direction-column {\n  flex-direction: column;\n}\n\n.justify-content-space-between {\n  justify-content: space-between;\n}\n\n.justify-content-end {\n  justify-content: end;\n}\n\n.align-items-center {\n  align-items: center;\n}\n\n.mt-8 {\n  margin-top: 8px;\n}\n\n.mt-16 {\n  margin-top: 16px;\n}\n\n.mt-28 {\n  margin-top: 28px;\n}\n\n.mt-32 {\n  margin-top: 32px;\n}\n\n.fw-600 {\n  font-weight: 600;\n}\n\n.column-gap-8 {\n  column-gap: 8px;\n}\n\n.grid-columns-six {\n  grid-template-columns: repeat(7, 1fr);\n}\n\n.grid-columns-one {\n  grid-template-columns: repeat(1, 1fr);\n}\n\n.hidden {\n  display: none;\n}\n\nbutton {\n  cursor: pointer;\n}\n\nh1 {\n  text-align: center;\n  font-weight: 600;\n  font-size: 34px;\n  line-height: 36px;\n  margin: 52px 0 16px 0;\n}\n\np,\nlabel {\n  font-size: 15px;\n}\n\n#app {\n  width: 414px;\n  min-height: 727px;\n  border: 2px solid black;\n  padding: 0 16px;\n}\n\n.base-button {\n  height: 36px;\n  background: #00bcd4;\n  border-radius: 4px;\n  color: #ffffff;\n  font-weight: bold;\n  letter-spacing: 1.25px;\n  outline: none;\n  border: none;\n}\n\n/* 로또 구매 금액 입력 */\n\n#lotto-purchase-button:disabled {\n  background: gray;\n}\n\n#lotto-purchase-input {\n  height: 36px;\n  width: 294px;\n  border: 1px solid #b4b4b4;\n  box-sizing: border-box;\n  border-radius: 4px;\n  padding: 10px 5px;\n}\n\n#lotto-purchase-input::placeholder {\n  color: #8b8b8b;\n}\n\n#lotto-list {\n  display: grid;\n}\n\nlabel[for='purchase-money'] {\n  line-height: 24px;\n  letter-spacing: 0.5px;\n}\n\n#lotto-purchase-button {\n  width: 56px;\n  padding: 6px 6px 6px 8px;\n  margin-left: 15px;\n}\n\n/* 토글 버튼 */\n\n.switch {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 20px;\n  margin-top: 4px;\n  margin-left: 24px;\n}\n\n#show-lotto-toggle {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n/* 토글 버튼 애니메이션 */\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 3px;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: '';\n  height: 13px;\n  width: 13px;\n  left: 4px;\n  bottom: 2px;\n  background-color: white;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\ninput:checked + .slider {\n  background-color: #2196f3;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(10px);\n}\n\n.slider.round {\n  border-radius: 34px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n\n/* 토글 버튼 */\n\n.switch {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 20px;\n  margin-top: 4px;\n  margin-left: 24px;\n}\n\n#show-lotto-toggle {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n/* 토글 버튼 애니메이션 */\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 3px;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: '';\n  height: 13px;\n  width: 13px;\n  left: 4px;\n  bottom: 2px;\n  background-color: white;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\ninput:checked + .slider {\n  background-color: #2196f3;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(10px);\n}\n\n.slider.round {\n  border-radius: 34px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n\n/* 로또 구매 결과 */\n\n#lotto-purchase-result {\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  justify-content: space-between;\n}\n\n#lotto-list-wrap {\n  width: 80%;\n}\n\n.lotto-wrap {\n  font-size: 30px;\n  margin-right: 8px;\n}\n\n.lotto-numbers {\n  font-size: 16px;\n  line-height: 38px;\n  margin-left: 6px;\n  word-spacing: 1px;\n}\n\n#restart-button {\n  width: 60%;\n}\n\n#lotto-result-title {\n  font-size: 20px;\n  font-weight: 600;\n}\n\n#lotto-result-table {\n  text-align: center;\n  margin-top: 32px;\n}\n\ntable, th, td {\n  border-top: 1.5px solid #DCDCDC;\n  border-bottom: 1.5px solid #DCDCDC;\n  height: 40px;\n  vertical-align: middle;\n  font-size: 15px;\n}\n\n\n/* 로또 당첨 번호 입력 */\n\n.lotto-winning-number-container {\n  width: 34px;\n  height: 36px;\n  border-radius: 4px;\n  outline: none;\n  border: 1px solid #b4b4b4;\n  text-align: center;\n}\n\n#lotto-match-result-button {\n  width: 100%;\n}\n\n/* 결과 */\n\ndialog::backdrop {\n  background: rgba(0, 0, 0, 0.5);\n}\n\n#lotto-result-dialog {\n  height: 500px;\n}", "",{"version":3,"sources":["webpack://./src/css/index.css"],"names":[],"mappings":"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","sourcesContent":["@import url('reset.css');\n\nbody {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 40px 0;\n}\n\n.flex {\n  display: flex;\n}\n\n.flex-direction-column {\n  flex-direction: column;\n}\n\n.justify-content-space-between {\n  justify-content: space-between;\n}\n\n.justify-content-end {\n  justify-content: end;\n}\n\n.align-items-center {\n  align-items: center;\n}\n\n.mt-8 {\n  margin-top: 8px;\n}\n\n.mt-16 {\n  margin-top: 16px;\n}\n\n.mt-28 {\n  margin-top: 28px;\n}\n\n.mt-32 {\n  margin-top: 32px;\n}\n\n.fw-600 {\n  font-weight: 600;\n}\n\n.column-gap-8 {\n  column-gap: 8px;\n}\n\n.grid-columns-six {\n  grid-template-columns: repeat(7, 1fr);\n}\n\n.grid-columns-one {\n  grid-template-columns: repeat(1, 1fr);\n}\n\n.hidden {\n  display: none;\n}\n\nbutton {\n  cursor: pointer;\n}\n\nh1 {\n  text-align: center;\n  font-weight: 600;\n  font-size: 34px;\n  line-height: 36px;\n  margin: 52px 0 16px 0;\n}\n\np,\nlabel {\n  font-size: 15px;\n}\n\n#app {\n  width: 414px;\n  min-height: 727px;\n  border: 2px solid black;\n  padding: 0 16px;\n}\n\n.base-button {\n  height: 36px;\n  background: #00bcd4;\n  border-radius: 4px;\n  color: #ffffff;\n  font-weight: bold;\n  letter-spacing: 1.25px;\n  outline: none;\n  border: none;\n}\n\n/* 로또 구매 금액 입력 */\n\n#lotto-purchase-button:disabled {\n  background: gray;\n}\n\n#lotto-purchase-input {\n  height: 36px;\n  width: 294px;\n  border: 1px solid #b4b4b4;\n  box-sizing: border-box;\n  border-radius: 4px;\n  padding: 10px 5px;\n}\n\n#lotto-purchase-input::placeholder {\n  color: #8b8b8b;\n}\n\n#lotto-list {\n  display: grid;\n}\n\nlabel[for='purchase-money'] {\n  line-height: 24px;\n  letter-spacing: 0.5px;\n}\n\n#lotto-purchase-button {\n  width: 56px;\n  padding: 6px 6px 6px 8px;\n  margin-left: 15px;\n}\n\n/* 토글 버튼 */\n\n.switch {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 20px;\n  margin-top: 4px;\n  margin-left: 24px;\n}\n\n#show-lotto-toggle {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n/* 토글 버튼 애니메이션 */\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 3px;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: '';\n  height: 13px;\n  width: 13px;\n  left: 4px;\n  bottom: 2px;\n  background-color: white;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\ninput:checked + .slider {\n  background-color: #2196f3;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(10px);\n}\n\n.slider.round {\n  border-radius: 34px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n\n/* 토글 버튼 */\n\n.switch {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 20px;\n  margin-top: 4px;\n  margin-left: 24px;\n}\n\n#show-lotto-toggle {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n/* 토글 버튼 애니메이션 */\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 3px;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: '';\n  height: 13px;\n  width: 13px;\n  left: 4px;\n  bottom: 2px;\n  background-color: white;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\ninput:checked + .slider {\n  background-color: #2196f3;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(10px);\n}\n\n.slider.round {\n  border-radius: 34px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n\n/* 로또 구매 결과 */\n\n#lotto-purchase-result {\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  justify-content: space-between;\n}\n\n#lotto-list-wrap {\n  width: 80%;\n}\n\n.lotto-wrap {\n  font-size: 30px;\n  margin-right: 8px;\n}\n\n.lotto-numbers {\n  font-size: 16px;\n  line-height: 38px;\n  margin-left: 6px;\n  word-spacing: 1px;\n}\n\n#restart-button {\n  width: 60%;\n}\n\n#lotto-result-title {\n  font-size: 20px;\n  font-weight: 600;\n}\n\n#lotto-result-table {\n  text-align: center;\n  margin-top: 32px;\n}\n\ntable, th, td {\n  border-top: 1.5px solid #DCDCDC;\n  border-bottom: 1.5px solid #DCDCDC;\n  height: 40px;\n  vertical-align: middle;\n  font-size: 15px;\n}\n\n\n/* 로또 당첨 번호 입력 */\n\n.lotto-winning-number-container {\n  width: 34px;\n  height: 36px;\n  border-radius: 4px;\n  outline: none;\n  border: 1px solid #b4b4b4;\n  text-align: center;\n}\n\n#lotto-match-result-button {\n  width: 100%;\n}\n\n/* 결과 */\n\ndialog::backdrop {\n  background: rgba(0, 0, 0, 0.5);\n}\n\n#lotto-result-dialog {\n  height: 500px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "body {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 40px 0;\n}\n\n.flex {\n  display: flex;\n}\n\n.flex-direction-column {\n  flex-direction: column;\n}\n\n.justify-content-space-between {\n  justify-content: space-between;\n}\n\n.justify-content-end {\n  justify-content: end;\n}\n\n.align-items-center {\n  align-items: center;\n}\n\n.mt-8 {\n  margin-top: 8px;\n}\n\n.mt-16 {\n  margin-top: 16px;\n}\n\n.mt-28 {\n  margin-top: 28px;\n}\n\n.mt-32 {\n  margin-top: 32px;\n}\n\n.fw-600 {\n  font-weight: 600;\n}\n\n.column-gap-8 {\n  column-gap: 8px;\n}\n\n.grid-columns-six {\n  grid-template-columns: repeat(7, 1fr);\n}\n\n.grid-columns-one {\n  grid-template-columns: repeat(1, 1fr);\n}\n\n.hidden {\n  display: none;\n}\n\nbutton {\n  cursor: pointer;\n}\n\nh1 {\n  text-align: center;\n  font-weight: 600;\n  font-size: 34px;\n  line-height: 36px;\n  margin: 52px 0 16px 0;\n}\n\np,\nlabel {\n  font-size: 15px;\n}\n\n#app {\n  width: 414px;\n  min-height: 727px;\n  border: 2px solid black;\n  padding: 0 16px;\n}\n\n.base-button {\n  height: 36px;\n  background: #00bcd4;\n  border-radius: 4px;\n  color: #ffffff;\n  font-weight: bold;\n  letter-spacing: 1.25px;\n  outline: none;\n  border: none;\n}\n\n/* 로또 구매 금액 입력 */\n#lotto-purchase-button:disabled {\n  background: gray;\n}\n\n#lotto-purchase-input {\n  height: 36px;\n  width: 294px;\n  border: 1px solid #b4b4b4;\n  box-sizing: border-box;\n  border-radius: 4px;\n  padding: 10px 5px;\n}\n\n#lotto-purchase-input::placeholder {\n  color: #8b8b8b;\n}\n\n#lotto-list {\n  display: grid;\n}\n\nlabel[for='purchase-money'] {\n  line-height: 24px;\n  letter-spacing: 0.5px;\n}\n\n#lotto-purchase-button {\n  width: 56px;\n  padding: 6px 6px 6px 8px;\n  margin-left: 15px;\n}\n\n/* 토글 버튼 */\n.switch {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 20px;\n  margin-top: 4px;\n  margin-left: 24px;\n}\n\n#show-lotto-toggle {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n/* 토글 버튼 애니메이션 */\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 3px;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: '';\n  height: 13px;\n  width: 13px;\n  left: 4px;\n  bottom: 2px;\n  background-color: white;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\ninput:checked + .slider {\n  background-color: #2196f3;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(10px);\n}\n\n.slider.round {\n  border-radius: 34px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n\n/* 로또 구매 결과 */\n#lotto-purchase-result-section {\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  justify-content: space-between;\n}\n\n#lotto-list-wrap {\n  width: 80%;\n}\n\n.lotto-wrap {\n  font-size: 30px;\n  margin-right: 8px;\n}\n\n.lotto-numbers {\n  font-size: 16px;\n  line-height: 38px;\n  margin-left: 6px;\n  word-spacing: 1px;\n}\n\n#restart-button {\n  width: 60%;\n}\n\n#lotto-result-title {\n  font-size: 20px;\n  font-weight: 600;\n}\n\n#lotto-result-table {\n  text-align: center;\n  margin-top: 32px;\n}\n\ntable, th, td {\n  border-top: 1.5px solid #DCDCDC;\n  border-bottom: 1.5px solid #DCDCDC;\n  height: 40px;\n  vertical-align: middle;\n  font-size: 15px;\n}\n\n\n/* 로또 당첨 번호 입력 */\n.lotto-winning-number-container {\n  width: 34px;\n  height: 36px;\n  border-radius: 4px;\n  outline: none;\n  border: 1px solid #b4b4b4;\n  text-align: center;\n}\n\n#lotto-match-result-button {\n  width: 100%;\n}\n\n/* 결과 */\ndialog::backdrop {\n  background: rgba(0, 0, 0, 0.5);\n}\n\n#close-tag {\n  align-self: flex-end;\n  cursor: pointer;\n}\n\n#lotto-result-dialog {\n  height: 500px;\n}", "",{"version":3,"sources":["webpack://./src/css/index.css"],"names":[],"mappings":"AAEA;EACE,aAAa;EACb,uBAAuB;EACvB,mBAAmB;EACnB,cAAc;AAChB;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,sBAAsB;AACxB;;AAEA;EACE,8BAA8B;AAChC;;AAEA;EACE,oBAAoB;AACtB;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,gBAAgB;AAClB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,qCAAqC;AACvC;;AAEA;EACE,qCAAqC;AACvC;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,gBAAgB;EAChB,eAAe;EACf,iBAAiB;EACjB,qBAAqB;AACvB;;AAEA;;EAEE,eAAe;AACjB;;AAEA;EACE,YAAY;EACZ,iBAAiB;EACjB,uBAAuB;EACvB,eAAe;AACjB;;AAEA;EACE,YAAY;EACZ,mBAAmB;EACnB,kBAAkB;EAClB,cAAc;EACd,iBAAiB;EACjB,sBAAsB;EACtB,aAAa;EACb,YAAY;AACd;;AAEA,gBAAgB;AAChB;EACE,gBAAgB;AAClB;;AAEA;EACE,YAAY;EACZ,YAAY;EACZ,yBAAyB;EACzB,sBAAsB;EACtB,kBAAkB;EAClB,iBAAiB;AACnB;;AAEA;EACE,cAAc;AAChB;;AAEA;EACE,aAAa;AACf;;AAEA;EACE,iBAAiB;EACjB,qBAAqB;AACvB;;AAEA;EACE,WAAW;EACX,wBAAwB;EACxB,iBAAiB;AACnB;;AAEA,UAAU;AACV;EACE,kBAAkB;EAClB,qBAAqB;EACrB,WAAW;EACX,YAAY;EACZ,eAAe;EACf,iBAAiB;AACnB;;AAEA;EACE,UAAU;EACV,QAAQ;EACR,SAAS;AACX;;AAEA,gBAAgB;AAChB;EACE,kBAAkB;EAClB,eAAe;EACf,QAAQ;EACR,OAAO;EACP,QAAQ;EACR,SAAS;EACT,sBAAsB;EACtB,wBAAwB;EACxB,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,WAAW;EACX,YAAY;EACZ,WAAW;EACX,SAAS;EACT,WAAW;EACX,uBAAuB;EACvB,wBAAwB;EACxB,gBAAgB;AAClB;;AAEA;EACE,yBAAyB;AAC3B;;AAEA;EACE,2BAA2B;AAC7B;;AAEA;EACE,mCAAmC;EACnC,+BAA+B;EAC/B,2BAA2B;AAC7B;;AAEA;EACE,mBAAmB;AACrB;;AAEA;EACE,kBAAkB;AACpB;;AAEA,aAAa;AACb;EACE,WAAW;EACX,gBAAgB;EAChB,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,iBAAiB;EACjB,gBAAgB;EAChB,iBAAiB;AACnB;;AAEA;EACE,UAAU;AACZ;;AAEA;EACE,eAAe;EACf,gBAAgB;AAClB;;AAEA;EACE,kBAAkB;EAClB,gBAAgB;AAClB;;AAEA;EACE,+BAA+B;EAC/B,kCAAkC;EAClC,YAAY;EACZ,sBAAsB;EACtB,eAAe;AACjB;;;AAGA,gBAAgB;AAChB;EACE,WAAW;EACX,YAAY;EACZ,kBAAkB;EAClB,aAAa;EACb,yBAAyB;EACzB,kBAAkB;AACpB;;AAEA;EACE,WAAW;AACb;;AAEA,OAAO;AACP;EACE,8BAA8B;AAChC;;AAEA;EACE,oBAAoB;EACpB,eAAe;AACjB;;AAEA;EACE,aAAa;AACf","sourcesContent":["@import url('reset.css');\n\nbody {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  margin: 40px 0;\n}\n\n.flex {\n  display: flex;\n}\n\n.flex-direction-column {\n  flex-direction: column;\n}\n\n.justify-content-space-between {\n  justify-content: space-between;\n}\n\n.justify-content-end {\n  justify-content: end;\n}\n\n.align-items-center {\n  align-items: center;\n}\n\n.mt-8 {\n  margin-top: 8px;\n}\n\n.mt-16 {\n  margin-top: 16px;\n}\n\n.mt-28 {\n  margin-top: 28px;\n}\n\n.mt-32 {\n  margin-top: 32px;\n}\n\n.fw-600 {\n  font-weight: 600;\n}\n\n.column-gap-8 {\n  column-gap: 8px;\n}\n\n.grid-columns-six {\n  grid-template-columns: repeat(7, 1fr);\n}\n\n.grid-columns-one {\n  grid-template-columns: repeat(1, 1fr);\n}\n\n.hidden {\n  display: none;\n}\n\nbutton {\n  cursor: pointer;\n}\n\nh1 {\n  text-align: center;\n  font-weight: 600;\n  font-size: 34px;\n  line-height: 36px;\n  margin: 52px 0 16px 0;\n}\n\np,\nlabel {\n  font-size: 15px;\n}\n\n#app {\n  width: 414px;\n  min-height: 727px;\n  border: 2px solid black;\n  padding: 0 16px;\n}\n\n.base-button {\n  height: 36px;\n  background: #00bcd4;\n  border-radius: 4px;\n  color: #ffffff;\n  font-weight: bold;\n  letter-spacing: 1.25px;\n  outline: none;\n  border: none;\n}\n\n/* 로또 구매 금액 입력 */\n#lotto-purchase-button:disabled {\n  background: gray;\n}\n\n#lotto-purchase-input {\n  height: 36px;\n  width: 294px;\n  border: 1px solid #b4b4b4;\n  box-sizing: border-box;\n  border-radius: 4px;\n  padding: 10px 5px;\n}\n\n#lotto-purchase-input::placeholder {\n  color: #8b8b8b;\n}\n\n#lotto-list {\n  display: grid;\n}\n\nlabel[for='purchase-money'] {\n  line-height: 24px;\n  letter-spacing: 0.5px;\n}\n\n#lotto-purchase-button {\n  width: 56px;\n  padding: 6px 6px 6px 8px;\n  margin-left: 15px;\n}\n\n/* 토글 버튼 */\n.switch {\n  position: relative;\n  display: inline-block;\n  width: 30px;\n  height: 20px;\n  margin-top: 4px;\n  margin-left: 24px;\n}\n\n#show-lotto-toggle {\n  opacity: 0;\n  width: 0;\n  height: 0;\n}\n\n/* 토글 버튼 애니메이션 */\n.slider {\n  position: absolute;\n  cursor: pointer;\n  top: 3px;\n  left: 0;\n  right: 0;\n  bottom: 0;\n  background-color: #ccc;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\n.slider:before {\n  position: absolute;\n  content: '';\n  height: 13px;\n  width: 13px;\n  left: 4px;\n  bottom: 2px;\n  background-color: white;\n  -webkit-transition: 0.4s;\n  transition: 0.4s;\n}\n\ninput:checked + .slider {\n  background-color: #2196f3;\n}\n\ninput:focus + .slider {\n  box-shadow: 0 0 1px #2196f3;\n}\n\ninput:checked + .slider:before {\n  -webkit-transform: translateX(26px);\n  -ms-transform: translateX(26px);\n  transform: translateX(10px);\n}\n\n.slider.round {\n  border-radius: 34px;\n}\n\n.slider.round:before {\n  border-radius: 50%;\n}\n\n/* 로또 구매 결과 */\n#lotto-purchase-result-section {\n  width: 100%;\n  overflow: hidden;\n  display: flex;\n  justify-content: space-between;\n}\n\n#lotto-list-wrap {\n  width: 80%;\n}\n\n.lotto-wrap {\n  font-size: 30px;\n  margin-right: 8px;\n}\n\n.lotto-numbers {\n  font-size: 16px;\n  line-height: 38px;\n  margin-left: 6px;\n  word-spacing: 1px;\n}\n\n#restart-button {\n  width: 60%;\n}\n\n#lotto-result-title {\n  font-size: 20px;\n  font-weight: 600;\n}\n\n#lotto-result-table {\n  text-align: center;\n  margin-top: 32px;\n}\n\ntable, th, td {\n  border-top: 1.5px solid #DCDCDC;\n  border-bottom: 1.5px solid #DCDCDC;\n  height: 40px;\n  vertical-align: middle;\n  font-size: 15px;\n}\n\n\n/* 로또 당첨 번호 입력 */\n.lotto-winning-number-container {\n  width: 34px;\n  height: 36px;\n  border-radius: 4px;\n  outline: none;\n  border: 1px solid #b4b4b4;\n  text-align: center;\n}\n\n#lotto-match-result-button {\n  width: 100%;\n}\n\n/* 결과 */\ndialog::backdrop {\n  background: rgba(0, 0, 0, 0.5);\n}\n\n#close-tag {\n  align-self: flex-end;\n  cursor: pointer;\n}\n\n#lotto-result-dialog {\n  height: 500px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1820,7 +1818,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/lottoPurchaseInputView.js */ "./src/js/views/lottoPurchaseInputView.js");
 /* harmony import */ var _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/lottoPurchaseResultView.js */ "./src/js/views/lottoPurchaseResultView.js");
 /* harmony import */ var _views_lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/lottoWinningNumberInputView.js */ "./src/js/views/lottoWinningNumberInputView.js");
-/* harmony import */ var _views_lottoResultView_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/lottoResultView.js */ "./src/js/views/lottoResultView.js");
+/* harmony import */ var _views_lottoMatchResultView_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/lottoMatchResultView.js */ "./src/js/views/lottoMatchResultView.js");
 /* harmony import */ var _css_index_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../css/index.css */ "./src/css/index.css");
 
 
@@ -1840,7 +1838,7 @@ var startLotto = function startLotto() {
     lottoPurchaseInputView: new _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_3__["default"](),
     lottoPurchaseResultView: new _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_4__["default"](),
     lottoWinningNumberInputView: new _views_lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_5__["default"](),
-    lottoResultView: new _views_lottoResultView_js__WEBPACK_IMPORTED_MODULE_6__["default"]()
+    lottoMatchResultView: new _views_lottoMatchResultView_js__WEBPACK_IMPORTED_MODULE_6__["default"]()
   };
   new _lottoController_js__WEBPACK_IMPORTED_MODULE_0__["default"](models, views);
 };
