@@ -428,20 +428,20 @@ var LottoResultManager = /*#__PURE__*/function () {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "LOTTO": () => (/* binding */ LOTTO),
 /* harmony export */   "ERROR_MESSAGE": () => (/* binding */ ERROR_MESSAGE),
+/* harmony export */   "LOTTO": () => (/* binding */ LOTTO),
 /* harmony export */   "LOTTO_MATCHING_RESULT_KEY": () => (/* binding */ LOTTO_MATCHING_RESULT_KEY),
 /* harmony export */   "LOTTO_PRIZE_MONEY_UNIT": () => (/* binding */ LOTTO_PRIZE_MONEY_UNIT)
 /* harmony export */ });
+var ERROR_MESSAGE = Object.freeze({
+  IS_NOT_VALID_PURCHASE_MONEY: '1000원 단위로 금액을 입력해주세요!',
+  IS_NOT_VALID_LOTTO_WINNING_NUMBERS: '1~45사이의 숫자를 중복없이 입력해주세요!'
+});
 var LOTTO = Object.freeze({
   COST_UNIT: 1000,
   MAX_DIGIT: 45,
   MIN_DIGIT: 1,
   NUMBER_LENGTH: 6
-});
-var ERROR_MESSAGE = Object.freeze({
-  IS_NOT_VALID_PURCHASE_MONEY: '1000원 단위로 금액을 입력해주세요!',
-  IS_NOT_VALID_LOTTO_WINNING_NUMBERS: '1~45사이의 숫자를 중복없이 입력해주세요!'
 });
 var LOTTO_MATCHING_RESULT_KEY = Object.freeze({
   THREE: '3개',
