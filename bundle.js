@@ -146,11 +146,7 @@ var LottoController = /*#__PURE__*/function () {
   }]);
 
   return LottoController;
-}(); // #submitBlockNotNumberInput(event) {
-//   event.preventDefault();
-//   console.log(event.detail);
-// }
-
+}();
 
 function _submitInitialView2() {
   (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoPurchaseInputView).lottoPurchaseForm, '@purchaseMoney', _classPrivateMethodGet(this, _submitPurchaseLotto, _submitPurchaseLotto2).bind(this));
@@ -384,30 +380,16 @@ var LottoResultManager = /*#__PURE__*/function () {
   }, {
     key: "getKeyByMatchedNumCount",
     value: function getKeyByMatchedNumCount(matchedNumCount, lotto, lottoWinningBonusNumber) {
-      var key;
+      var _KEY_BY_MATCHED_NUM_C;
 
-      switch (matchedNumCount) {
-        case 3:
-          key = _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.THREE;
-          break;
-
-        case 4:
-          key = _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FOUR;
-          break;
-
-        case 5:
-          key = lotto.includes(lottoWinningBonusNumber) ? _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS : _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE;
-          break;
-
-        case 6:
-          key = _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.SIX;
-          break;
-
-        default:
-          key = _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.NOTHING;
-      }
-
-      return key;
+      var KEY_BY_MATCHED_NUM_COUNT = {
+        3: _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.THREE,
+        4: _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FOUR,
+        5: lotto.includes(lottoWinningBonusNumber) ? _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS : _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE,
+        6: _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.SIX,
+        NOTHING: _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.NOTHING
+      };
+      return (_KEY_BY_MATCHED_NUM_C = KEY_BY_MATCHED_NUM_COUNT[matchedNumCount]) !== null && _KEY_BY_MATCHED_NUM_C !== void 0 ? _KEY_BY_MATCHED_NUM_C : KEY_BY_MATCHED_NUM_COUNT.NOTHING;
     }
   }, {
     key: "calcProfit",
@@ -416,33 +398,18 @@ var LottoResultManager = /*#__PURE__*/function () {
 
       var totalPrizeMoney = Object.keys(lottoMatchingResult).reduce(function (currentPrizeMoney, key) {
         var prizeAmount = lottoMatchingResult[key];
-        var earnedPrizeMoney = _this.getPrizeUnitByKey(key) * prizeAmount;
+        var earnedPrizeMoney = _this.getPrizeUnit(key) * prizeAmount;
         return currentPrizeMoney + earnedPrizeMoney;
       }, 0);
       return Math.round((totalPrizeMoney - purchaseMoney) / purchaseMoney * 100);
     }
   }, {
-    key: "getPrizeUnitByKey",
-    value: function getPrizeUnitByKey(key) {
-      switch (key) {
-        case _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.THREE:
-          return _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.THREE;
+    key: "getPrizeUnit",
+    value: function getPrizeUnit(key) {
+      var _PRIZE_MONEY_UNIT, _PRIZE_MONEY_UNIT$key;
 
-        case _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FOUR:
-          return _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.FOUR;
-
-        case _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE:
-          return _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.FIVE;
-
-        case _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS:
-          return _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.FIVE_PLUS_BONUS;
-
-        case _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.SIX:
-          return _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.SIX;
-
-        default:
-          return 1;
-      }
+      var PRIZE_MONEY_UNIT = (_PRIZE_MONEY_UNIT = {}, _defineProperty(_PRIZE_MONEY_UNIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.THREE, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.THREE), _defineProperty(_PRIZE_MONEY_UNIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FOUR, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.FOUR), _defineProperty(_PRIZE_MONEY_UNIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.FIVE), _defineProperty(_PRIZE_MONEY_UNIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.FIVE_PLUS_BONUS), _defineProperty(_PRIZE_MONEY_UNIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.SIX, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.SIX), _defineProperty(_PRIZE_MONEY_UNIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_MATCHING_RESULT_KEY.NOTHING, _utils_constants_js__WEBPACK_IMPORTED_MODULE_0__.LOTTO_PRIZE_MONEY_UNIT.NOTHING), _PRIZE_MONEY_UNIT);
+      return (_PRIZE_MONEY_UNIT$key = PRIZE_MONEY_UNIT[key]) !== null && _PRIZE_MONEY_UNIT$key !== void 0 ? _PRIZE_MONEY_UNIT$key : PRIZE_MONEY_UNIT.NOTHING;
     }
   }]);
 
@@ -1171,13 +1138,7 @@ var LottoWinningNumberInputView = /*#__PURE__*/function () {
   }]);
 
   return LottoWinningNumberInputView;
-}(); // #handleBlockNotNumberInput(event) {
-//   const conditions = ['Key', 'Space'];
-//   if (conditions.some((ele) => event.code.includes(ele))) {
-//     event.preventDefault();
-//   }
-// }
-
+}();
 
 function _handleMatchResult2(event) {
   event.preventDefault();
