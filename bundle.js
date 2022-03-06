@@ -57,8 +57,6 @@ var _lottoMatchResultView = /*#__PURE__*/new WeakMap();
 
 var _submitInitialView = /*#__PURE__*/new WeakSet();
 
-var _submitLottoToggle = /*#__PURE__*/new WeakSet();
-
 var _submitPurchaseLotto = /*#__PURE__*/new WeakSet();
 
 var _submitRestart = /*#__PURE__*/new WeakSet();
@@ -78,8 +76,6 @@ var LottoController = /*#__PURE__*/function () {
     _classPrivateMethodInitSpec(this, _submitRestart);
 
     _classPrivateMethodInitSpec(this, _submitPurchaseLotto);
-
-    _classPrivateMethodInitSpec(this, _submitLottoToggle);
 
     _classPrivateMethodInitSpec(this, _submitInitialView);
 
@@ -150,12 +146,7 @@ var LottoController = /*#__PURE__*/function () {
 
 function _submitInitialView2() {
   (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoPurchaseInputView).lottoPurchaseForm, '@purchaseMoney', _classPrivateMethodGet(this, _submitPurchaseLotto, _submitPurchaseLotto2).bind(this));
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoPurchaseResultView).showLottoToggle, '@lottoToggle', _classPrivateMethodGet(this, _submitLottoToggle, _submitLottoToggle2).bind(this));
   (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoMatchResultView).restartButton, '@restart', _classPrivateMethodGet(this, _submitRestart, _submitRestart2).bind(this));
-}
-
-function _submitLottoToggle2() {
-  _classPrivateFieldGet(this, _lottoPurchaseResultView).toggleLottoNumbers();
 }
 
 function _submitPurchaseLotto2(event) {
@@ -502,6 +493,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "lottoPurchaseCountTemplate": () => (/* binding */ lottoPurchaseCountTemplate),
 /* harmony export */   "lottoPurchaseResultTemplate": () => (/* binding */ lottoPurchaseResultTemplate),
+/* harmony export */   "toggleButtonTemplate": () => (/* binding */ toggleButtonTemplate),
 /* harmony export */   "lottoTemplate": () => (/* binding */ lottoTemplate),
 /* harmony export */   "lottoWinningNumberInputTemplate": () => (/* binding */ lottoWinningNumberInputTemplate)
 /* harmony export */ });
@@ -526,6 +518,9 @@ var lottoPurchaseResultTemplate = function lottoPurchaseResultTemplate(lottoList
   return "\n    ".concat(lottoList.map(function (lotto) {
     return lottoTemplate(_toConsumableArray(lotto));
   }).join(''), "\n  ");
+};
+var toggleButtonTemplate = function toggleButtonTemplate() {
+  return "\n    <div id=\"lotto-toggle-button\" class=\"flex flex-direction-column\">\n      <p>\uBC88\uD638\uBCF4\uAE30</p>\n      <label class=\"switch\" for=\"show-lotto-toggle\">\n      <input\n        id=\"show-lotto-toggle\"\n        name=\"show-lotto-toggle\"\n        type=\"checkbox\"\n      />\n      <span class=\"slider round\"></span>\n      </label>\n    </div>\n  ";
 };
 var lottoTemplate = function lottoTemplate(numbers) {
   return "\n    <li class=\"flex\">\n      <img src=".concat(_images_lotto_png__WEBPACK_IMPORTED_MODULE_0__["default"], " />\n      <p class=\"lotto-numbers hidden\">").concat(numbers.join(', '), "</p>\n    </li>\n  ");
@@ -903,11 +898,11 @@ function _classPrivateFieldInitSpec(obj, privateMap, value) { _checkPrivateRedec
 
 function _checkPrivateRedeclaration(obj, privateCollection) { if (privateCollection.has(obj)) { throw new TypeError("Cannot initialize the same private elements twice on an object"); } }
 
+function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
+
 function _classPrivateFieldGet(receiver, privateMap) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "get"); return _classApplyDescriptorGet(receiver, descriptor); }
 
 function _classApplyDescriptorGet(receiver, descriptor) { if (descriptor.get) { return descriptor.get.call(receiver); } return descriptor.value; }
-
-function _classPrivateMethodGet(receiver, privateSet, fn) { if (!privateSet.has(receiver)) { throw new TypeError("attempted to get private field on non-instance"); } return fn; }
 
 function _classPrivateFieldSet(receiver, privateMap, value) { var descriptor = _classExtractFieldDescriptor(receiver, privateMap, "set"); _classApplyDescriptorSet(receiver, descriptor, value); return value; }
 
@@ -926,17 +921,15 @@ var _showLottoToggle = /*#__PURE__*/new WeakMap();
 
 var _lottoNumbers = /*#__PURE__*/new WeakMap();
 
-var _attachEvents = /*#__PURE__*/new WeakSet();
+var _lottoPurchaseResultSection = /*#__PURE__*/new WeakMap();
 
-var _handleShowLottoToggle = /*#__PURE__*/new WeakSet();
+var _toggleLottoNumbers = /*#__PURE__*/new WeakSet();
 
 var lottoPurchaseResultView = /*#__PURE__*/function () {
   function lottoPurchaseResultView() {
     _classCallCheck(this, lottoPurchaseResultView);
 
-    _classPrivateMethodInitSpec(this, _handleShowLottoToggle);
-
-    _classPrivateMethodInitSpec(this, _attachEvents);
+    _classPrivateMethodInitSpec(this, _toggleLottoNumbers);
 
     _classPrivateFieldInitSpec(this, _lottoPurchaseCount, {
       writable: true,
@@ -958,39 +951,30 @@ var lottoPurchaseResultView = /*#__PURE__*/function () {
       value: void 0
     });
 
+    _classPrivateFieldInitSpec(this, _lottoPurchaseResultSection, {
+      writable: true,
+      value: void 0
+    });
+
     _classPrivateFieldSet(this, _lottoPurchaseCount, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-count'));
 
     _classPrivateFieldSet(this, _lottoList, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-list'));
 
-    _classPrivateFieldSet(this, _showLottoToggle, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#show-lotto-toggle'));
-
-    _classPrivateMethodGet(this, _attachEvents, _attachEvents2).call(this);
+    _classPrivateFieldSet(this, _lottoPurchaseResultSection, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-result-section'));
   }
 
   _createClass(lottoPurchaseResultView, [{
-    key: "showLottoToggle",
-    get: function get() {
-      return _classPrivateFieldGet(this, _showLottoToggle);
-    }
-  }, {
     key: "render",
     value: function render(count, lottoList) {
       _classPrivateFieldGet(this, _lottoPurchaseCount).textContent = (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoPurchaseCountTemplate)(count);
 
+      _classPrivateFieldGet(this, _lottoPurchaseResultSection).insertAdjacentHTML('beforeend', (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.toggleButtonTemplate)());
+
+      _classPrivateFieldSet(this, _showLottoToggle, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#show-lotto-toggle'));
+
+      (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _showLottoToggle), 'click', _classPrivateMethodGet(this, _toggleLottoNumbers, _toggleLottoNumbers2).bind(this));
+
       _classPrivateFieldGet(this, _lottoList).insertAdjacentHTML('afterbegin', (0,_utils_template_js__WEBPACK_IMPORTED_MODULE_1__.lottoPurchaseResultTemplate)(lottoList));
-    }
-  }, {
-    key: "toggleLottoNumbers",
-    value: function toggleLottoNumbers() {
-      _classPrivateFieldSet(this, _lottoNumbers, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$$)('.lotto-numbers'));
-
-      _classPrivateFieldGet(this, _lottoList).classList.toggle('grid-columns-six');
-
-      _classPrivateFieldGet(this, _lottoList).classList.toggle('grid-columns-one');
-
-      _classPrivateFieldGet(this, _lottoNumbers).forEach(function (element) {
-        return element.classList.toggle('hidden');
-      });
     }
   }, {
     key: "restart",
@@ -999,24 +983,31 @@ var lottoPurchaseResultView = /*#__PURE__*/function () {
 
       if (_classPrivateFieldGet(this, _showLottoToggle).checked) {
         _classPrivateFieldGet(this, _showLottoToggle).checked = false;
-        this.toggleLottoNumbers();
+
+        _classPrivateMethodGet(this, _toggleLottoNumbers, _toggleLottoNumbers2).call(this);
       }
 
       while (_classPrivateFieldGet(this, _lottoList).firstChild) {
         _classPrivateFieldGet(this, _lottoList).removeChild(_classPrivateFieldGet(this, _lottoList).firstChild);
       }
+
+      (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-toggle-button').remove();
     }
   }]);
 
   return lottoPurchaseResultView;
 }();
 
-function _attachEvents2() {
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _showLottoToggle), 'click', _classPrivateMethodGet(this, _handleShowLottoToggle, _handleShowLottoToggle2).bind(this));
-}
+function _toggleLottoNumbers2() {
+  _classPrivateFieldSet(this, _lottoNumbers, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$$)('.lotto-numbers'));
 
-function _handleShowLottoToggle2() {
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(_classPrivateFieldGet(this, _showLottoToggle), '@lottoToggle');
+  _classPrivateFieldGet(this, _lottoList).classList.toggle('grid-columns-six');
+
+  _classPrivateFieldGet(this, _lottoList).classList.toggle('grid-columns-one');
+
+  _classPrivateFieldGet(this, _lottoNumbers).forEach(function (element) {
+    return element.classList.toggle('hidden');
+  });
 }
 
 
