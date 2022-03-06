@@ -141,7 +141,12 @@ var LottoController = /*#__PURE__*/function () {
     }
   }, {
     key: "validateLottoWinningBonusNumber",
-    value: function validateLottoWinningBonusNumber(lottoWinningNumbers, lottoWinningBonusNumber, min, max) {
+    value: function validateLottoWinningBonusNumber(_ref) {
+      var lottoWinningNumbers = _ref.lottoWinningNumbers,
+          lottoWinningBonusNumber = _ref.lottoWinningBonusNumber,
+          min = _ref.min,
+          max = _ref.max;
+
       if ((0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isNumberInRange)(lottoWinningBonusNumber, min, max) && (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isNotIncludeSameNumber)(lottoWinningNumbers, lottoWinningBonusNumber)) {
         return true;
       }
@@ -202,7 +207,12 @@ function _submitMatchResult2(event) {
 
   try {
     LottoController.validateLottoWinningNumbers(lottoWinningNumbers, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT);
-    LottoController.validateLottoWinningBonusNumber(lottoWinningNumbers, lottoWinningBonusNumber, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT);
+    LottoController.validateLottoWinningBonusNumber({
+      lottoWinningNumbers: lottoWinningNumbers,
+      lottoWinningBonusNumber: lottoWinningBonusNumber,
+      min: _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT,
+      max: _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT
+    });
 
     var lottoMatchResult = _classPrivateFieldGet(this, _lottoResultManager).calcLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, _classPrivateFieldGet(this, _lottoCreator).lottoList);
 
