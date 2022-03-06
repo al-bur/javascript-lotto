@@ -287,7 +287,7 @@ var LottoCreator = /*#__PURE__*/function () {
 
       _classPrivateFieldSet(this, _lottoList, Array.from({
         length: lottoCount
-      }).map(function () {
+      }, function () {
         return LottoCreator.generateLotto();
       }));
     }
