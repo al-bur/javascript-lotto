@@ -125,19 +125,28 @@ var LottoController = /*#__PURE__*/function () {
   }
 
   _createClass(LottoController, null, [{
-    key: "isValidPurchaseMoney",
-    value: function isValidPurchaseMoney(purchaseMoney) {
-      return (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isDividedByThousand)(purchaseMoney) && !(0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isEmptyValue)(purchaseMoney) && (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isPositiveValue)(purchaseMoney);
+    key: "validatePurchaseMoney",
+    value: function validatePurchaseMoney(purchaseMoney) {
+      if ((0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isDividedByThousand)(purchaseMoney) && !(0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isEmptyValue)(purchaseMoney) && (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isPositiveValue)(purchaseMoney)) {
+        return true;
+      }
+
+      throw new Error(_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_MESSAGE.IS_NOT_VALID_PURCHASE_MONEY);
     }
   }, {
-    key: "isValidLottoWinningNumbers",
-    value: function isValidLottoWinningNumbers(lottoWinningNumbers, min, max) {
-      return (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isNotDuplicateNumberExistInArray)(lottoWinningNumbers) && (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isAllNumberInRange)(lottoWinningNumbers, min, max);
+    key: "validateLottoWinningNumbers",
+    value: function validateLottoWinningNumbers(lottoWinningNumbers, min, max) {
+      if ((0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isNotDuplicateNumberExistInArray)(lottoWinningNumbers) && (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isAllNumberInRange)(lottoWinningNumbers, min, max)) return true;
+      throw new Error(_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_MESSAGE.IS_NOT_VALID_LOTTO_WINNING_NUMBERS);
     }
   }, {
-    key: "isValidLottoWinningBonusNumber",
-    value: function isValidLottoWinningBonusNumber(lottoWinningNumbers, lottoWinningBonusNumber, min, max) {
-      return (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isNumberInRange)(lottoWinningBonusNumber, min, max) && (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isNotIncludeSameNumber)(lottoWinningNumbers, lottoWinningBonusNumber);
+    key: "validateLottoWinningBonusNumber",
+    value: function validateLottoWinningBonusNumber(lottoWinningNumbers, lottoWinningBonusNumber, min, max) {
+      if ((0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isNumberInRange)(lottoWinningBonusNumber, min, max) && (0,_utils_validator_js__WEBPACK_IMPORTED_MODULE_1__.isNotIncludeSameNumber)(lottoWinningNumbers, lottoWinningBonusNumber)) {
+        return true;
+      }
+
+      throw new Error(_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_MESSAGE.IS_NOT_VALID_LOTTO_WINNING_BONUS_NUMBER);
     }
   }]);
 
@@ -152,7 +161,8 @@ function _submitInitialView2() {
 function _submitPurchaseLotto2(event) {
   var purchaseMoney = event.detail;
 
-  if (LottoController.isValidPurchaseMoney(purchaseMoney)) {
+  try {
+    LottoController.validatePurchaseMoney(purchaseMoney);
     _classPrivateFieldGet(this, _lottoCreator).purchaseMoney = purchaseMoney;
 
     _classPrivateFieldGet(this, _lottoPurchaseInputView).disableForm();
@@ -164,13 +174,11 @@ function _submitPurchaseLotto2(event) {
     _classPrivateFieldGet(this, _lottoWinningNumberInputView).render();
 
     _classPrivateMethodGet(this, _submitLottoWinningNumberInputView, _submitLottoWinningNumberInputView2).call(this);
+  } catch (err) {
+    alert(err.message);
 
-    return;
+    _classPrivateFieldGet(this, _lottoPurchaseInputView).reset();
   }
-
-  alert(_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_MESSAGE.IS_NOT_VALID_PURCHASE_MONEY);
-
-  _classPrivateFieldGet(this, _lottoPurchaseInputView).reset();
 }
 
 function _submitRestart2() {
@@ -192,19 +200,20 @@ function _submitMatchResult2(event) {
       lottoWinningNumbers = _event$detail.lottoWinningNumbers,
       lottoWinningBonusNumber = _event$detail.lottoWinningBonusNumber;
 
-  if (LottoController.isValidLottoWinningNumbers(lottoWinningNumbers, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT) && LottoController.isValidLottoWinningBonusNumber(lottoWinningNumbers, lottoWinningBonusNumber, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT)) {
+  try {
+    LottoController.validateLottoWinningNumbers(lottoWinningNumbers, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT);
+    LottoController.validateLottoWinningBonusNumber(lottoWinningNumbers, lottoWinningBonusNumber, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MIN_DIGIT, _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.LOTTO.MAX_DIGIT);
+
     var lottoMatchResult = _classPrivateFieldGet(this, _lottoResultManager).calcLottoMatchingResult(lottoWinningNumbers, lottoWinningBonusNumber, _classPrivateFieldGet(this, _lottoCreator).lottoList);
 
     var profit = _classPrivateFieldGet(this, _lottoResultManager).calcProfit(_classPrivateFieldGet(this, _lottoCreator).purchaseMoney, lottoMatchResult);
 
     _classPrivateFieldGet(this, _lottoMatchResultModalView).render(lottoMatchResult, profit);
+  } catch (err) {
+    alert(err.message);
 
-    return;
+    _classPrivateFieldGet(this, _lottoWinningNumberInputView).reset();
   }
-
-  alert(_utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.ERROR_MESSAGE.IS_NOT_VALID_LOTTO_WINNING_NUMBERS);
-
-  _classPrivateFieldGet(this, _lottoWinningNumberInputView).reset();
 }
 
 
@@ -423,6 +432,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 var ERROR_MESSAGE = Object.freeze({
   IS_NOT_VALID_PURCHASE_MONEY: '1000원 단위로 금액을 입력해주세요!',
+  IS_NOT_VALID_LOTTO_WINNING_BONUS_NUMBER: '보너스 번호에 1~45사이의 숫자를 입력하신 당첨번호와 중복없이 입력해주세요!',
   IS_NOT_VALID_LOTTO_WINNING_NUMBERS: '1~45사이의 숫자를 중복없이 입력해주세요!'
 });
 var LOTTO = Object.freeze({
