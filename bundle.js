@@ -53,7 +53,7 @@ var _lottoPurchaseResultView = /*#__PURE__*/new WeakMap();
 
 var _lottoWinningNumberInputView = /*#__PURE__*/new WeakMap();
 
-var _lottoMatchResultView = /*#__PURE__*/new WeakMap();
+var _lottoMatchResultModalView = /*#__PURE__*/new WeakMap();
 
 var _submitInitialView = /*#__PURE__*/new WeakSet();
 
@@ -104,7 +104,7 @@ var LottoController = /*#__PURE__*/function () {
       value: void 0
     });
 
-    _classPrivateFieldInitSpec(this, _lottoMatchResultView, {
+    _classPrivateFieldInitSpec(this, _lottoMatchResultModalView, {
       writable: true,
       value: void 0
     });
@@ -119,7 +119,7 @@ var LottoController = /*#__PURE__*/function () {
 
     _classPrivateFieldSet(this, _lottoWinningNumberInputView, views.lottoWinningNumberInputView);
 
-    _classPrivateFieldSet(this, _lottoMatchResultView, views.lottoMatchResultView);
+    _classPrivateFieldSet(this, _lottoMatchResultModalView, views.lottoMatchResultModalView);
 
     _classPrivateMethodGet(this, _submitInitialView, _submitInitialView2).call(this);
   }
@@ -146,7 +146,7 @@ var LottoController = /*#__PURE__*/function () {
 
 function _submitInitialView2() {
   (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoPurchaseInputView).lottoPurchaseForm, '@purchaseMoney', _classPrivateMethodGet(this, _submitPurchaseLotto, _submitPurchaseLotto2).bind(this));
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoMatchResultView).restartButton, '@restart', _classPrivateMethodGet(this, _submitRestart, _submitRestart2).bind(this));
+  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoMatchResultModalView).restartButton, '@restart', _classPrivateMethodGet(this, _submitRestart, _submitRestart2).bind(this));
 }
 
 function _submitPurchaseLotto2(event) {
@@ -197,7 +197,7 @@ function _submitMatchResult2(event) {
 
     var profit = _classPrivateFieldGet(this, _lottoResultManager).calcProfit(_classPrivateFieldGet(this, _lottoCreator).purchaseMoney, lottoMatchResult);
 
-    _classPrivateFieldGet(this, _lottoMatchResultView).render(lottoMatchResult, profit);
+    _classPrivateFieldGet(this, _lottoMatchResultModalView).render(lottoMatchResult, profit);
 
     return;
   }
@@ -573,15 +573,15 @@ var isNotIncludeSameNumber = function isNotIncludeSameNumber(valueArray, target)
 
 /***/ }),
 
-/***/ "./src/js/views/lottoMatchResultView.js":
-/*!**********************************************!*\
-  !*** ./src/js/views/lottoMatchResultView.js ***!
-  \**********************************************/
+/***/ "./src/js/views/lottoMatchResultModalView.js":
+/*!***************************************************!*\
+  !*** ./src/js/views/lottoMatchResultModalView.js ***!
+  \***************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ LottoMatchResultView)
+/* harmony export */   "default": () => (/* binding */ LottoMatchResultModalView)
 /* harmony export */ });
 /* harmony import */ var _utils_helper_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/helper.js */ "./src/js/utils/helper.js");
 /* harmony import */ var _utils_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../utils/constants.js */ "./src/js/utils/constants.js");
@@ -636,9 +636,9 @@ var _handleRestart = /*#__PURE__*/new WeakSet();
 
 var _handleCloseDialog = /*#__PURE__*/new WeakSet();
 
-var LottoMatchResultView = /*#__PURE__*/function () {
-  function LottoMatchResultView() {
-    _classCallCheck(this, LottoMatchResultView);
+var LottoMatchResultModalView = /*#__PURE__*/function () {
+  function LottoMatchResultModalView() {
+    _classCallCheck(this, LottoMatchResultModalView);
 
     _classPrivateMethodInitSpec(this, _handleCloseDialog);
 
@@ -712,7 +712,7 @@ var LottoMatchResultView = /*#__PURE__*/function () {
     _classPrivateMethodGet(this, _attachEvents, _attachEvents2).call(this);
   }
 
-  _createClass(LottoMatchResultView, [{
+  _createClass(LottoMatchResultModalView, [{
     key: "restartButton",
     get: function get() {
       return _classPrivateFieldGet(this, _restartButton);
@@ -731,7 +731,7 @@ var LottoMatchResultView = /*#__PURE__*/function () {
     }
   }]);
 
-  return LottoMatchResultView;
+  return LottoMatchResultModalView;
 }();
 
 function _attachEvents2() {
@@ -1809,7 +1809,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/lottoPurchaseInputView.js */ "./src/js/views/lottoPurchaseInputView.js");
 /* harmony import */ var _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/lottoPurchaseResultView.js */ "./src/js/views/lottoPurchaseResultView.js");
 /* harmony import */ var _views_lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/lottoWinningNumberInputView.js */ "./src/js/views/lottoWinningNumberInputView.js");
-/* harmony import */ var _views_lottoMatchResultView_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/lottoMatchResultView.js */ "./src/js/views/lottoMatchResultView.js");
+/* harmony import */ var _views_lottoMatchResultModalView_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/lottoMatchResultModalView.js */ "./src/js/views/lottoMatchResultModalView.js");
 /* harmony import */ var _css_index_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../css/index.css */ "./src/css/index.css");
 
 
@@ -1829,7 +1829,7 @@ var startLotto = function startLotto() {
     lottoPurchaseInputView: new _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_3__["default"](),
     lottoPurchaseResultView: new _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_4__["default"](),
     lottoWinningNumberInputView: new _views_lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_5__["default"](),
-    lottoMatchResultView: new _views_lottoMatchResultView_js__WEBPACK_IMPORTED_MODULE_6__["default"]()
+    lottoMatchResultModalView: new _views_lottoMatchResultModalView_js__WEBPACK_IMPORTED_MODULE_6__["default"]()
   };
   new _lottoController_js__WEBPACK_IMPORTED_MODULE_0__["default"](models, views);
 };
