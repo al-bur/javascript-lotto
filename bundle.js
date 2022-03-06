@@ -573,6 +573,34 @@ var isNotIncludeSameNumber = function isNotIncludeSameNumber(valueArray, target)
 
 /***/ }),
 
+/***/ "./src/js/views/index.js":
+/*!*******************************!*\
+  !*** ./src/js/views/index.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _lottoMatchResultModalView_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lottoMatchResultModalView.js */ "./src/js/views/lottoMatchResultModalView.js");
+/* harmony import */ var _lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lottoPurchaseInputView.js */ "./src/js/views/lottoPurchaseInputView.js");
+/* harmony import */ var _lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./lottoPurchaseResultView.js */ "./src/js/views/lottoPurchaseResultView.js");
+/* harmony import */ var _lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./lottoWinningNumberInputView.js */ "./src/js/views/lottoWinningNumberInputView.js");
+
+
+
+
+var views = {
+  lottoPurchaseInputView: new _lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_1__["default"](),
+  lottoPurchaseResultView: new _lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_2__["default"](),
+  lottoWinningNumberInputView: new _lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_3__["default"](),
+  lottoMatchResultModalView: new _lottoMatchResultModalView_js__WEBPACK_IMPORTED_MODULE_0__["default"]()
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (views);
+
+/***/ }),
+
 /***/ "./src/js/views/lottoMatchResultModalView.js":
 /*!***************************************************!*\
   !*** ./src/js/views/lottoMatchResultModalView.js ***!
@@ -1806,32 +1834,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lottoController_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lottoController.js */ "./src/js/lottoController.js");
 /* harmony import */ var _model_lottoCreator_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./model/lottoCreator.js */ "./src/js/model/lottoCreator.js");
 /* harmony import */ var _model_lottoResultManager_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./model/lottoResultManager.js */ "./src/js/model/lottoResultManager.js");
-/* harmony import */ var _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/lottoPurchaseInputView.js */ "./src/js/views/lottoPurchaseInputView.js");
-/* harmony import */ var _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./views/lottoPurchaseResultView.js */ "./src/js/views/lottoPurchaseResultView.js");
-/* harmony import */ var _views_lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/lottoWinningNumberInputView.js */ "./src/js/views/lottoWinningNumberInputView.js");
-/* harmony import */ var _views_lottoMatchResultModalView_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/lottoMatchResultModalView.js */ "./src/js/views/lottoMatchResultModalView.js");
-/* harmony import */ var _css_index_css__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../css/index.css */ "./src/css/index.css");
+/* harmony import */ var _views_index_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./views/index.js */ "./src/js/views/index.js");
+/* harmony import */ var _css_index_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../css/index.css */ "./src/css/index.css");
 
 
 
 
 
-
-
- // eslint-disable-next-line max-lines-per-function
 
 var startLotto = function startLotto() {
   var models = {
     lottoCreator: new _model_lottoCreator_js__WEBPACK_IMPORTED_MODULE_1__["default"](),
     LottoResultManager: _model_lottoResultManager_js__WEBPACK_IMPORTED_MODULE_2__["default"]
   };
-  var views = {
-    lottoPurchaseInputView: new _views_lottoPurchaseInputView_js__WEBPACK_IMPORTED_MODULE_3__["default"](),
-    lottoPurchaseResultView: new _views_lottoPurchaseResultView_js__WEBPACK_IMPORTED_MODULE_4__["default"](),
-    lottoWinningNumberInputView: new _views_lottoWinningNumberInputView_js__WEBPACK_IMPORTED_MODULE_5__["default"](),
-    lottoMatchResultModalView: new _views_lottoMatchResultModalView_js__WEBPACK_IMPORTED_MODULE_6__["default"]()
-  };
-  new _lottoController_js__WEBPACK_IMPORTED_MODULE_0__["default"](models, views);
+  new _lottoController_js__WEBPACK_IMPORTED_MODULE_0__["default"](models, _views_index_js__WEBPACK_IMPORTED_MODULE_3__["default"]);
 };
 
 document.addEventListener('DOMContentLoaded', startLotto);
