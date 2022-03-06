@@ -57,11 +57,11 @@ var _lottoMatchResultModalView = /*#__PURE__*/new WeakMap();
 
 var _submitInitialView = /*#__PURE__*/new WeakSet();
 
+var _submitLottoWinningNumberInputView = /*#__PURE__*/new WeakSet();
+
 var _submitPurchaseLotto = /*#__PURE__*/new WeakSet();
 
 var _submitRestart = /*#__PURE__*/new WeakSet();
-
-var _submitLottoWinningNumberInputView = /*#__PURE__*/new WeakSet();
 
 var _submitMatchResult = /*#__PURE__*/new WeakSet();
 
@@ -71,11 +71,11 @@ var LottoController = /*#__PURE__*/function () {
 
     _classPrivateMethodInitSpec(this, _submitMatchResult);
 
-    _classPrivateMethodInitSpec(this, _submitLottoWinningNumberInputView);
-
     _classPrivateMethodInitSpec(this, _submitRestart);
 
     _classPrivateMethodInitSpec(this, _submitPurchaseLotto);
+
+    _classPrivateMethodInitSpec(this, _submitLottoWinningNumberInputView);
 
     _classPrivateMethodInitSpec(this, _submitInitialView);
 
@@ -156,6 +156,10 @@ function _submitInitialView2() {
   (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoMatchResultModalView).restartButton, '@restart', _classPrivateMethodGet(this, _submitRestart, _submitRestart2).bind(this));
 }
 
+function _submitLottoWinningNumberInputView2() {
+  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoWinningNumberInputView).lottoWinningNumberForm, '@matchResult', _classPrivateMethodGet(this, _submitMatchResult, _submitMatchResult2).bind(this));
+}
+
 function _submitPurchaseLotto2(event) {
   var purchaseMoney = event.detail;
 
@@ -187,10 +191,6 @@ function _submitRestart2() {
   _classPrivateFieldGet(this, _lottoPurchaseResultView).restart();
 
   _classPrivateFieldGet(this, _lottoWinningNumberInputView).restart();
-}
-
-function _submitLottoWinningNumberInputView2() {
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoWinningNumberInputView).lottoMatchResultForm, '@matchResult', _classPrivateMethodGet(this, _submitMatchResult, _submitMatchResult2).bind(this));
 }
 
 function _submitMatchResult2(event) {
@@ -512,7 +512,7 @@ var lottoTemplate = function lottoTemplate(numbers) {
   return "\n    <li class=\"flex\">\n      <img src=".concat(_images_lotto_png__WEBPACK_IMPORTED_MODULE_0__["default"], " />\n      <p class=\"lotto-numbers hidden\">").concat(numbers.join(', '), "</p>\n    </li>\n  ");
 };
 var lottoWinningNumberInputTemplate = function lottoWinningNumberInputTemplate() {
-  return "\n    <section id=\"lotto-winning-number-input-section\">\n      <form id=\"lotto-match-result-form\">\n        <p class=\"mt-28\">\uC9C0\uB09C \uC8FC \uB2F9\uCCA8\uBC88\uD638 6\uAC1C\uC640 \uBCF4\uB108\uC2A4 \uBC88\uD638 1\uAC1C\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694</p>\n        <div class=\"flex justify-content-space-between mt-8\">\n          <div>\n            <label for=\"lotto-winning-number\">\uB2F9\uCCA8 \uBC88\uD638</label>\n            <div class=\"mt-8 flex column-gap-8\">\n              <input id=\"lotto-winning-number\" class=\"lotto-winning-number-container\" maxlength=\"2\" />\n              ".concat('<input class="lotto-winning-number-container" maxlength="2" />'.repeat(5), "\n            </div>\n          </div>\n          <div>\n            <label for=\"lotto-winning-bonus-number\">\uBCF4\uB108\uC2A4 \uBC88\uD638</label>\n            <div class=\"flex justify-content-end mt-8\">\n              <input id=\"lotto-winning-bonus-number\" class=\"lotto-winning-number-container\" maxlength=\"2\" />\n            </div>\n          </div>\n        </div>\n        <button id=\"lotto-match-result-button\" class=\"base-button mt-28\" type=\"submit\">\uACB0\uACFC \uD655\uC778\uD558\uAE30</button>\n      </form>\n    </section>\n  ");
+  return "\n    <section id=\"lotto-winning-number-input-section\">\n      <form id=\"lotto-winning-number-form\">\n        <p class=\"mt-28\">\uC9C0\uB09C \uC8FC \uB2F9\uCCA8\uBC88\uD638 6\uAC1C\uC640 \uBCF4\uB108\uC2A4 \uBC88\uD638 1\uAC1C\uB97C \uC785\uB825\uD574\uC8FC\uC138\uC694</p>\n        <div class=\"flex justify-content-space-between mt-8\">\n          <div>\n            <label for=\"lotto-winning-number\">\uB2F9\uCCA8 \uBC88\uD638</label>\n            <div class=\"mt-8 flex column-gap-8\">\n              <input id=\"lotto-winning-number\" class=\"lotto-winning-number-container\" maxlength=\"2\" />\n              ".concat('<input class="lotto-winning-number-container" maxlength="2" />'.repeat(5), "\n            </div>\n          </div>\n          <div>\n            <label for=\"lotto-winning-bonus-number\">\uBCF4\uB108\uC2A4 \uBC88\uD638</label>\n            <div class=\"flex justify-content-end mt-8\">\n              <input id=\"lotto-winning-bonus-number\" class=\"lotto-winning-number-container\" maxlength=\"2\" />\n            </div>\n          </div>\n        </div>\n        <button id=\"lotto-match-result-button\" class=\"base-button mt-28\" type=\"submit\">\uACB0\uACFC \uD655\uC778\uD558\uAE30</button>\n      </form>\n    </section>\n  ");
 };
 
 /***/ }),
@@ -626,23 +626,15 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 
 
+var _closeTag = /*#__PURE__*/new WeakMap();
+
 var _lottoResultDialog = /*#__PURE__*/new WeakMap();
 
-var _threeMatchedNumber = /*#__PURE__*/new WeakMap();
-
-var _fourMatchedNumber = /*#__PURE__*/new WeakMap();
-
-var _fiveMatchedNumber = /*#__PURE__*/new WeakMap();
-
-var _fiveWithBonusMatchedNumber = /*#__PURE__*/new WeakMap();
-
-var _sixMatchedNumber = /*#__PURE__*/new WeakMap();
+var _matchedNumbers = /*#__PURE__*/new WeakMap();
 
 var _profitRate = /*#__PURE__*/new WeakMap();
 
 var _restartButton = /*#__PURE__*/new WeakMap();
-
-var _closeTag = /*#__PURE__*/new WeakMap();
 
 var _attachEvents = /*#__PURE__*/new WeakSet();
 
@@ -660,32 +652,17 @@ var LottoMatchResultModalView = /*#__PURE__*/function () {
 
     _classPrivateMethodInitSpec(this, _attachEvents);
 
+    _classPrivateFieldInitSpec(this, _closeTag, {
+      writable: true,
+      value: void 0
+    });
+
     _classPrivateFieldInitSpec(this, _lottoResultDialog, {
       writable: true,
       value: void 0
     });
 
-    _classPrivateFieldInitSpec(this, _threeMatchedNumber, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _fourMatchedNumber, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _fiveMatchedNumber, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _fiveWithBonusMatchedNumber, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _sixMatchedNumber, {
+    _classPrivateFieldInitSpec(this, _matchedNumbers, {
       writable: true,
       value: void 0
     });
@@ -700,22 +677,15 @@ var LottoMatchResultModalView = /*#__PURE__*/function () {
       value: void 0
     });
 
-    _classPrivateFieldInitSpec(this, _closeTag, {
-      writable: true,
-      value: void 0
-    });
-
     _classPrivateFieldSet(this, _lottoResultDialog, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-result-dialog'));
 
-    _classPrivateFieldSet(this, _threeMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#three-matched-number'));
-
-    _classPrivateFieldSet(this, _fourMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#four-matched-number'));
-
-    _classPrivateFieldSet(this, _fiveMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#five-matched-number'));
-
-    _classPrivateFieldSet(this, _fiveWithBonusMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#five-with-bonus-matched-number'));
-
-    _classPrivateFieldSet(this, _sixMatchedNumber, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#six-matched-number'));
+    _classPrivateFieldSet(this, _matchedNumbers, {
+      three: (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#three-matched-number'),
+      four: (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#four-matched-number'),
+      five: (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#five-matched-number'),
+      fiveWithBonus: (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#five-with-bonus-matched-number'),
+      six: (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#six-matched-number')
+    });
 
     _classPrivateFieldSet(this, _profitRate, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#profit-rate'));
 
@@ -736,11 +706,11 @@ var LottoMatchResultModalView = /*#__PURE__*/function () {
     value: function render(lottoMatchingResult, profit) {
       _classPrivateFieldGet(this, _lottoResultDialog).showModal();
 
-      _classPrivateFieldGet(this, _threeMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.THREE];
-      _classPrivateFieldGet(this, _fourMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.FOUR];
-      _classPrivateFieldGet(this, _fiveMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.FIVE];
-      _classPrivateFieldGet(this, _fiveWithBonusMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS];
-      _classPrivateFieldGet(this, _sixMatchedNumber).textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.SIX];
+      _classPrivateFieldGet(this, _matchedNumbers).three.textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.THREE];
+      _classPrivateFieldGet(this, _matchedNumbers).four.textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.FOUR];
+      _classPrivateFieldGet(this, _matchedNumbers).five.textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.FIVE];
+      _classPrivateFieldGet(this, _matchedNumbers).fiveWithBonus.textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.FIVE_PLUS_BONUS];
+      _classPrivateFieldGet(this, _matchedNumbers).six.textContent = lottoMatchingResult[_utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.LOTTO_MATCHING_RESULT_KEY.SIX];
       _classPrivateFieldGet(this, _profitRate).textContent = profit;
     }
   }]);
@@ -804,11 +774,7 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 
 
-var _lottoPurchaseForm = /*#__PURE__*/new WeakMap();
-
-var _lottoPurchaseInput = /*#__PURE__*/new WeakMap();
-
-var _lottoPurchaseButton = /*#__PURE__*/new WeakMap();
+var _lottoPurchase = /*#__PURE__*/new WeakMap();
 
 var _attachEvents = /*#__PURE__*/new WeakSet();
 
@@ -822,26 +788,16 @@ var LottoPurchaseInputView = /*#__PURE__*/function () {
 
     _classPrivateMethodInitSpec(this, _attachEvents);
 
-    _classPrivateFieldInitSpec(this, _lottoPurchaseForm, {
+    _classPrivateFieldInitSpec(this, _lottoPurchase, {
       writable: true,
       value: void 0
     });
 
-    _classPrivateFieldInitSpec(this, _lottoPurchaseInput, {
-      writable: true,
-      value: void 0
+    _classPrivateFieldSet(this, _lottoPurchase, {
+      form: (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-form'),
+      input: (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-input'),
+      button: (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-button')
     });
-
-    _classPrivateFieldInitSpec(this, _lottoPurchaseButton, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldSet(this, _lottoPurchaseForm, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-form'));
-
-    _classPrivateFieldSet(this, _lottoPurchaseInput, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-input'));
-
-    _classPrivateFieldSet(this, _lottoPurchaseButton, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-purchase-button'));
 
     _classPrivateMethodGet(this, _attachEvents, _attachEvents2).call(this);
   }
@@ -849,25 +805,25 @@ var LottoPurchaseInputView = /*#__PURE__*/function () {
   _createClass(LottoPurchaseInputView, [{
     key: "lottoPurchaseForm",
     get: function get() {
-      return _classPrivateFieldGet(this, _lottoPurchaseForm);
+      return _classPrivateFieldGet(this, _lottoPurchase).form;
     }
   }, {
     key: "reset",
     value: function reset() {
-      _classPrivateFieldGet(this, _lottoPurchaseForm).reset();
+      _classPrivateFieldGet(this, _lottoPurchase).form.reset();
     }
   }, {
     key: "disableForm",
     value: function disableForm() {
-      _classPrivateFieldGet(this, _lottoPurchaseInput).disabled = true;
-      _classPrivateFieldGet(this, _lottoPurchaseButton).disabled = true;
+      _classPrivateFieldGet(this, _lottoPurchase).input.disabled = true;
+      _classPrivateFieldGet(this, _lottoPurchase).button.disabled = true;
     }
   }, {
     key: "restart",
     value: function restart() {
       this.reset();
-      _classPrivateFieldGet(this, _lottoPurchaseInput).disabled = false;
-      _classPrivateFieldGet(this, _lottoPurchaseButton).disabled = false;
+      _classPrivateFieldGet(this, _lottoPurchase).input.disabled = false;
+      _classPrivateFieldGet(this, _lottoPurchase).button.disabled = false;
     }
   }]);
 
@@ -875,13 +831,13 @@ var LottoPurchaseInputView = /*#__PURE__*/function () {
 }();
 
 function _attachEvents2() {
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoPurchaseForm), 'submit', _classPrivateMethodGet(this, _handlePurchaseLotto, _handlePurchaseLotto2).bind(this));
+  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoPurchase).form, 'submit', _classPrivateMethodGet(this, _handlePurchaseLotto, _handlePurchaseLotto2).bind(this));
 }
 
 function _handlePurchaseLotto2(event) {
   event.preventDefault();
   var purchaseMoney = event.target.elements['lotto-purchase-input'].valueAsNumber;
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(_classPrivateFieldGet(this, _lottoPurchaseForm), '@purchaseMoney', purchaseMoney);
+  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(_classPrivateFieldGet(this, _lottoPurchase).form, '@purchaseMoney', purchaseMoney);
 }
 
 
@@ -927,15 +883,15 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 
 
-var _lottoPurchaseCount = /*#__PURE__*/new WeakMap();
-
 var _lottoList = /*#__PURE__*/new WeakMap();
-
-var _showLottoToggle = /*#__PURE__*/new WeakMap();
 
 var _lottoNumbers = /*#__PURE__*/new WeakMap();
 
+var _lottoPurchaseCount = /*#__PURE__*/new WeakMap();
+
 var _lottoPurchaseResultSection = /*#__PURE__*/new WeakMap();
+
+var _showLottoToggle = /*#__PURE__*/new WeakMap();
 
 var _toggleLottoNumbers = /*#__PURE__*/new WeakSet();
 
@@ -945,17 +901,7 @@ var lottoPurchaseResultView = /*#__PURE__*/function () {
 
     _classPrivateMethodInitSpec(this, _toggleLottoNumbers);
 
-    _classPrivateFieldInitSpec(this, _lottoPurchaseCount, {
-      writable: true,
-      value: void 0
-    });
-
     _classPrivateFieldInitSpec(this, _lottoList, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _showLottoToggle, {
       writable: true,
       value: void 0
     });
@@ -965,7 +911,17 @@ var lottoPurchaseResultView = /*#__PURE__*/function () {
       value: void 0
     });
 
+    _classPrivateFieldInitSpec(this, _lottoPurchaseCount, {
+      writable: true,
+      value: void 0
+    });
+
     _classPrivateFieldInitSpec(this, _lottoPurchaseResultSection, {
+      writable: true,
+      value: void 0
+    });
+
+    _classPrivateFieldInitSpec(this, _showLottoToggle, {
       writable: true,
       value: void 0
     });
@@ -1069,11 +1025,7 @@ function _classApplyDescriptorSet(receiver, descriptor, value) { if (descriptor.
 
 var _lottoPurchaseResultSection = /*#__PURE__*/new WeakMap();
 
-var _lottoWinningNumberContainers = /*#__PURE__*/new WeakMap();
-
-var _lottoMatchResultForm = /*#__PURE__*/new WeakMap();
-
-var _lottoWinningNumberInputSection = /*#__PURE__*/new WeakMap();
+var _lottoWinningNumber = /*#__PURE__*/new WeakMap();
 
 var _handleMatchResult = /*#__PURE__*/new WeakSet();
 
@@ -1096,17 +1048,7 @@ var LottoWinningNumberInputView = /*#__PURE__*/function () {
       value: void 0
     });
 
-    _classPrivateFieldInitSpec(this, _lottoWinningNumberContainers, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _lottoMatchResultForm, {
-      writable: true,
-      value: void 0
-    });
-
-    _classPrivateFieldInitSpec(this, _lottoWinningNumberInputSection, {
+    _classPrivateFieldInitSpec(this, _lottoWinningNumber, {
       writable: true,
       value: void 0
     });
@@ -1115,9 +1057,9 @@ var LottoWinningNumberInputView = /*#__PURE__*/function () {
   }
 
   _createClass(LottoWinningNumberInputView, [{
-    key: "lottoMatchResultForm",
+    key: "lottoWinningNumberForm",
     get: function get() {
-      return _classPrivateFieldGet(this, _lottoMatchResultForm);
+      return _classPrivateFieldGet(this, _lottoWinningNumber).form;
     }
   }, {
     key: "render",
@@ -1131,12 +1073,12 @@ var LottoWinningNumberInputView = /*#__PURE__*/function () {
   }, {
     key: "reset",
     value: function reset() {
-      _classPrivateFieldGet(this, _lottoMatchResultForm).reset();
+      _classPrivateFieldGet(this, _lottoWinningNumber).form.reset();
     }
   }, {
     key: "restart",
     value: function restart() {
-      _classPrivateFieldGet(this, _lottoWinningNumberInputSection).remove();
+      _classPrivateFieldGet(this, _lottoWinningNumber).inputSection.remove();
     }
   }]);
 
@@ -1145,26 +1087,26 @@ var LottoWinningNumberInputView = /*#__PURE__*/function () {
 
 function _handleMatchResult2(event) {
   event.preventDefault();
-  var lottoWinningNumbers = Array.from(_classPrivateFieldGet(this, _lottoWinningNumberContainers)).map(function (element) {
+  var lottoWinningNumbers = Array.from(_classPrivateFieldGet(this, _lottoWinningNumber).containers).map(function (element) {
     return Number(element.value);
   });
   var lottoWinningBonusNumber = Number(lottoWinningNumbers.pop());
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(_classPrivateFieldGet(this, _lottoMatchResultForm), '@matchResult', {
+  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.emit)(_classPrivateFieldGet(this, _lottoWinningNumber).form, '@matchResult', {
     lottoWinningNumbers: lottoWinningNumbers,
     lottoWinningBonusNumber: lottoWinningBonusNumber
   });
 }
 
 function _selectDOM2() {
-  _classPrivateFieldSet(this, _lottoMatchResultForm, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-match-result-form'));
-
-  _classPrivateFieldSet(this, _lottoWinningNumberContainers, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$$)('.lotto-winning-number-container'));
-
-  _classPrivateFieldSet(this, _lottoWinningNumberInputSection, (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-winning-number-input-section'));
+  _classPrivateFieldSet(this, _lottoWinningNumber, {
+    inputSection: (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-winning-number-input-section'),
+    form: (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$)('#lotto-winning-number-form'),
+    containers: (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.$$)('.lotto-winning-number-container')
+  });
 }
 
 function _attachEvents2() {
-  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoMatchResultForm), 'submit', _classPrivateMethodGet(this, _handleMatchResult, _handleMatchResult2).bind(this));
+  (0,_utils_helper_js__WEBPACK_IMPORTED_MODULE_0__.on)(_classPrivateFieldGet(this, _lottoWinningNumber).form, 'submit', _classPrivateMethodGet(this, _handleMatchResult, _handleMatchResult2).bind(this));
 }
 
 
