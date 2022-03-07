@@ -61,7 +61,7 @@ export const lottoWinningNumberInputTemplate = () => {
             </div>
           </div>
         </div>
-        <button id="lotto-match-result-button" class="base-button mt-28" type="submit">결과 확인하기</button>
+        <button id="lotto-match-result-button" class="base-button" type="submit">결과 확인하기</button>
       </form>
     </section>
   `;

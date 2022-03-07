@@ -118,6 +118,9 @@ label {
 
 #lotto-list {
   display: grid;
+  padding: 0 15px;
+  max-height: 350px;
+  overflow-y: auto;
 }
 
 label[for='purchase-money'] {
@@ -253,6 +256,7 @@ table, th, td {
 
 #lotto-match-result-button {
   width: 100%;
+  margin: 28px 0;
 }
 
 /* 결과 */
