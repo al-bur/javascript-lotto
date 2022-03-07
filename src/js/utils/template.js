@@ -46,8 +46,12 @@ export const lottoWinningNumberInputTemplate = () => {
           <div>
             <label for="lotto-winning-number">당첨 번호</label>
             <div class="mt-8 flex column-gap-8">
-              <input id="lotto-winning-number" class="lotto-winning-number-container" maxlength="2" />
-              ${'<input class="lotto-winning-number-container" maxlength="2" />'.repeat(5)}
+              ${Array.from(
+                { length: 6 },
+                (_, i) =>
+                  `<input id="lotto-winning-number-${i + 1}" class="lotto-winning-number-container" 
+                   maxlength="2" aria-labelledby="lotto-winning-number" />`
+              ).join('')}
             </div>
           </div>
           <div>

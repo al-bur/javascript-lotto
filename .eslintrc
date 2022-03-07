@@ -16,7 +16,7 @@
         "printWidth": 100
       }
     ],
-    "max-depth": ["error", 1],
+    "max-depth": ["error", 2],
     "no-new": "off",
     "no-alert": "off",
     "import/extensions": "off",
