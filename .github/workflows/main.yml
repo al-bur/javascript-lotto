@@ -3,7 +3,7 @@ name: Build and GH-Page Deploy
 on:
   push:
     branches:
-      - step2
+      - draft
 
 jobs:
   build:
